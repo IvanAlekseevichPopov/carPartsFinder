@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "79551276639",
+    "project_id": "carpartsfinder-9ee78",
+    "storage_bucket": "carpartsfinder-9ee78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79551276639:android:c740a948c7246968335dea",
+        "android_client_info": {
+          "package_name": "com.example.carpartsfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79551276639-du69bachhetn71phi46d2vbic9h9fjfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiAmkEk0p75-R5zalxbvnheNm2MFndXdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79551276639-du69bachhetn71phi46d2vbic9h9fjfo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
