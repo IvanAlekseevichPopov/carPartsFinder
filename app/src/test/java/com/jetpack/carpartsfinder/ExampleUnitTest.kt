@@ -1,4 +1,4 @@
-package com.example.carpartsfinder
+package com.jetpack.carpartsfinder
 
 import org.junit.Test
 
