@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +38,9 @@ fun PartItemView(part: Part) {
         ) {
             Column {
                 AsyncImage(
+                    contentScale = ContentScale.Crop,
                     model = part.previewImage,
-                    modifier = Modifier.size(36.dp),
+                    modifier = Modifier.size(48.dp),
                     contentDescription = "preview of car part"
                 )
             }
@@ -68,7 +70,10 @@ fun PartItemView(part: Part) {
 fun PreviewPartItemView() {
     PartItemView(
         Part(
-            1, "as34wt", "honda", "asdfadsf"
+            1,
+            "as34wt",
+            "honda",
+            "asdfadsf"
         )
     )
 }

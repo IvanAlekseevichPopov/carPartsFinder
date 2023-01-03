@@ -1,9 +1,9 @@
 package com.jetpack.carpartsfinder.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.jetpack.carpartsfinder.model.Part
 import com.jetpack.carpartsfinder.repository.PartRepository
 import com.jetpack.carpartsfinder.utils.Resource
@@ -14,18 +14,18 @@ import javax.inject.Inject
 class PartViewModel @Inject constructor(
     private val partRepository: PartRepository
 ): ViewModel() {
+        //TODO реализовать сначала liveData потом Flow
 
-    var isLoading = mutableStateOf(false)
-    private var _getPartsData: MutableLiveData<List<Part>> = MutableLiveData<List<Part>>()
-    var getPartsData: LiveData<List<Part>> = _getPartsData
+    //TODO срисовать условия с ^^^
+    val data: LiveData<List<Part>> = liveData {
 
-    suspend fun getPartsData(): Resource<List<Part>> {
         val result = partRepository.getParts()
-        if (result is Resource.Success) {
-            isLoading.value = true
-            _getPartsData.value = result.data!!
+        if(result is Resource.Success && result.data != null) {
+            emit(result.data)
+        } else {
+            Log.d("11111", result.toString())
+            //TODO обработка ошибок
         }
 
-        return result
     }
 }
