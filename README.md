@@ -4,9 +4,10 @@ android app for search car parst photos
 
 TODO
 done карточку в результатах поиска в отдельный компонент
+click on card
 
 
-+click on card
++сверстать карточку
 
 
 remote config firebase
