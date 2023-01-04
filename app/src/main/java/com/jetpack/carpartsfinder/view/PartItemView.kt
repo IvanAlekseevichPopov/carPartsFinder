@@ -26,16 +26,16 @@ import com.jetpack.carpartsfinder.network.PartResponse
 @Composable
 fun PartItemView(
     part: PartResponse,
-
+    onClick: (Int) -> Unit,
 ) {
     Card(
         modifier = Modifier
             .clickable(
                 onClick = {
-                    //TODO navigation
+                    onClick(part.id) //TODO попробовать вынести наверх
                 }
             )
-            .padding(5.dp)
+            .padding(4.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp)),
         elevation = 8.dp
@@ -83,7 +83,8 @@ fun PreviewPartItemView() {
             "as34wt",
             "honda",
             "asdfadsf"
-        )
+        ),
+        {}
     )
 }
 

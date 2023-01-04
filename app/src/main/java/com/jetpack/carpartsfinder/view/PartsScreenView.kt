@@ -13,6 +13,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -33,6 +34,7 @@ import com.jetpack.carpartsfinder.ui.theme.Purple500
 fun PartsScreenView(
     parts: List<PartResponse>?,
     onSearchPress: (String) -> Unit,
+    onCardPress: (Int) -> Unit, //TODO uuid of part
 ) {
 //    val scope = rememberCoroutineScope()
 //    val context = LocalContext.current
@@ -95,12 +97,22 @@ fun PartsScreenView(
                     ) {
                         CircularProgressIndicator()
                     }
+                } else if (parts.isEmpty()) { //TODO when
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            "Can't find nothing" //TODO trans
+                        )
+                    }
                 } else {
                     LazyColumn(
                         modifier = Modifier.padding(8.dp)
                     ) {
                         items(parts.size) { index ->
-                            PartItemView(parts[index])
+                            PartItemView(parts[index], onCardPress)
                         }
                     }
                 }
@@ -113,8 +125,8 @@ fun PartsScreenView(
 @Preview
 private fun PreviewPartsScreenView() {
     return PartsScreenView(
-        parts = null
-    ) {
-        println("Empty callback")
-    }
+        parts = emptyList(),
+        onCardPress = {},
+        onSearchPress = {}
+    )
 }
