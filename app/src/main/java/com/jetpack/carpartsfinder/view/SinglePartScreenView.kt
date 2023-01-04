@@ -41,8 +41,8 @@ fun SinglePartScreenView(
     val scaffoldState = rememberScaffoldState()
 //    val screenState = viewModel.uiState.collectAsState()
 //    val partsData = viewModel.getPartsData.observeAsState()
-    val navController = rememberNavController()
 
+//    val navController = rememberNavController()
 //    NavHost(
 //        navController = ,
 //        graph =
