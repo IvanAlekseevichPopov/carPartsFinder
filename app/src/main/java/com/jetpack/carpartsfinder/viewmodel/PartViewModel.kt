@@ -1,31 +1,37 @@
 package com.jetpack.carpartsfinder.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.jetpack.carpartsfinder.model.Part
-import com.jetpack.carpartsfinder.repository.PartRepository
-import com.jetpack.carpartsfinder.utils.Resource
+import androidx.lifecycle.viewModelScope
+import com.jetpack.carpartsfinder.network.PartRepository
+import com.jetpack.carpartsfinder.network.PartResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class PartViewModel @Inject constructor(
     private val partRepository: PartRepository
-): ViewModel() {
-        //TODO реализовать сначала liveData потом Flow
+) : ViewModel() {
 
-    //TODO срисовать условия с ^^^
-    val data: LiveData<List<Part>> = liveData {
+    private val _state = MutableLiveData<List<PartResponse>?>()
+    val state: LiveData<List<PartResponse>?>
+        get() = _state
 
-        val result = partRepository.getParts()
-        if(result is Resource.Success && result.data != null) {
-            emit(result.data)
-        } else {
-            Log.d("11111", result.toString())
-            //TODO обработка ошибок
+    fun beginSearch(searchString: String?) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val result = partRepository.getParts(searchString)
+
+                _state.postValue(result.data)
+            }
         }
+    }
 
+    init {
+        beginSearch(null)
     }
 }

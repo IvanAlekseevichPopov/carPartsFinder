@@ -1,20 +1,17 @@
-package com.jetpack.carpartsfinder.repository
+package com.jetpack.carpartsfinder.network
 
-import com.jetpack.carpartsfinder.model.UserResponse
-import com.jetpack.carpartsfinder.network.ApiInterface
 import com.jetpack.carpartsfinder.utils.Resource
 import dagger.hilt.android.scopes.ActivityScoped
 import java.lang.Exception
 import javax.inject.Inject
 
 @ActivityScoped
-class UserRespository @Inject constructor(
+class PartRepository @Inject constructor(
     private val apiInterface: ApiInterface
 ) {
-
-    suspend fun getUserResponse(): Resource<List<UserResponse>> {
+    suspend fun getParts(searchString: String?): Resource<List<PartResponse>> {
         val response = try {
-            apiInterface.getUserData()
+            apiInterface.getParts(searchString)
         } catch (e: Exception) {
             return Resource.Error("An unknown error occured: ${e.localizedMessage}")
         }

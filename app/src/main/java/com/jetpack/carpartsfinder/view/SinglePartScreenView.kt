@@ -25,28 +25,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.jetpack.carpartsfinder.network.PartResponse
 import com.jetpack.carpartsfinder.ui.theme.Purple500
 
 //@ExperimentalMaterialApi
 @Composable
-fun PartsScreenView(
+fun SinglePartScreenView(
     parts: List<PartResponse>?,
-    onSearchPress: (String) -> Unit,
+    onSearchChange: (String) -> Unit,
 ) {
 //    val scope = rememberCoroutineScope()
 //    val context = LocalContext.current
     val scaffoldState = rememberScaffoldState()
 //    val screenState = viewModel.uiState.collectAsState()
 //    val partsData = viewModel.getPartsData.observeAsState()
+    val navController = rememberNavController()
 
-//    val navController = rememberNavController()
 //    NavHost(
 //        navController = ,
 //        graph =
 //    )
-
     Surface(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize()
@@ -77,7 +77,7 @@ fun PartsScreenView(
                             localInputState.value = it
                         },
                         trailingIcon = {
-                            IconButton(onClick = { onSearchPress(localInputState.value) }) {
+                            IconButton(onClick = { onSearchChange(localInputState.value) }) {
                                 Icon(
                                     imageVector = Icons.Filled.Search,
                                     contentDescription = "Search button"
@@ -112,10 +112,10 @@ fun PartsScreenView(
 
 @Composable
 @Preview()
-private fun PreviewPartsScreenView() {
+private fun PreviewSinglePartScreenView() {
     return PartsScreenView(
         parts = null
     ) {
-        println("Empty callback")
+        println("SDFADSF")
     }
 }

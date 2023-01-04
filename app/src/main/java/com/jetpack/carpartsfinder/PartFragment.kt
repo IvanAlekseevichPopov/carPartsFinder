@@ -23,24 +23,18 @@ class PartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return ComposeView(requireContext()).apply {
             setContent {
                 CarPartsFinderTheme {
-                    val state = viewModel.data.observeAsState().value
-                    PartsScreenView(state)
+                    val state = viewModel.state.observeAsState().value
+                    PartsScreenView(
+                        parts = state,
+                        onSearchPress = { searchString ->
+                            viewModel.beginSearch(searchString)
+                        }
+                    )
                 }
-//                JetsurveyTheme {
-//                    WelcomeScreen(
-//                        onEvent = { event ->
-//                            when (event) {
-//                                is WelcomeEvent.SignInSignUp -> viewModel.handleContinue(
-//                                    event.email
-//                                )
-//                                WelcomeEvent.SignInAsGuest -> viewModel.signInAsGuest()
-//                            }
-//                        }
-//                    )
-//                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.jetpack.carpartsfinder.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,20 +21,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.jetpack.carpartsfinder.model.Part
+import com.jetpack.carpartsfinder.network.PartResponse
 
 @Composable
-fun PartItemView(part: Part) {
+fun PartItemView(
+    part: PartResponse,
+
+) {
     Card(
         modifier = Modifier
+            .clickable(
+                onClick = {
+                    //TODO navigation
+                }
+            )
             .padding(5.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp)),
-        elevation = 10.dp
+        elevation = 8.dp
     ) {
         Row(
             modifier = Modifier
-                .padding(10.dp)
+                .padding(8.dp)
                 .fillMaxWidth(),
         ) {
             Column {
@@ -44,7 +53,7 @@ fun PartItemView(part: Part) {
                     contentDescription = "preview of car part"
                 )
             }
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(
                     text = part.partNumber,
@@ -69,7 +78,7 @@ fun PartItemView(part: Part) {
 @Preview()
 fun PreviewPartItemView() {
     PartItemView(
-        Part(
+        PartResponse(
             1,
             "as34wt",
             "honda",

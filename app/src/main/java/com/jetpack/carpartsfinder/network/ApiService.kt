@@ -1,7 +1,5 @@
 package com.jetpack.carpartsfinder.network
 
-import com.jetpack.carpartsfinder.repository.PartRepository
-import com.jetpack.carpartsfinder.repository.UserRespository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,11 +15,11 @@ import javax.inject.Singleton
 @Module
 class ApiService {
 
-    @Singleton
-    @Provides
-    fun provideUserRepository(
-        api: ApiInterface
-    ) = UserRespository(api)
+//    @Singleton
+//    @Provides
+//    fun provideUserRepository(
+//        api: ApiInterface
+//    ) = UserRespository(api)
 
     @Singleton
     @Provides

@@ -1,16 +1,15 @@
 package com.jetpack.carpartsfinder.network
 
-import com.jetpack.carpartsfinder.model.Part
-import com.jetpack.carpartsfinder.model.UserResponse
 import retrofit2.http.GET
+import retrofit2.http.Query
 import javax.inject.Singleton
 
 @Singleton
 interface ApiInterface {
 
-    @GET("todos")
-    suspend fun getUserData(): List<UserResponse>
+//    @GET("todos")
+//    suspend fun getUserData(): List<UserResponse>
 
     @GET("/parts")
-    suspend fun getParts(): List<Part>
+    suspend fun getParts(@Query("searchString") searchString: String?): List<PartResponse>
 }
