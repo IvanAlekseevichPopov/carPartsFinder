@@ -2,9 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ "*" ]
-#  pull_request:
-#    branches: [ "master" ]
+    branches: [ "feature/*" ]
 
 jobs:
   build_test_apk:
@@ -20,14 +18,5 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
     - name: Test with Gradle
       run: ./gradlew test
-    - name: Build apk
-      run: ./gradlew assembleDebug
-    - name: Upload APK
-      uses: actions/upload-artifact@v3
-      with:
-        name: app-debug.apk
-        path: app/build/outputs/apk/debug/app-debug.apk
