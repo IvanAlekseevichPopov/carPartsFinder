@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/welcome_fragment">
+    app:startDestination="@+id/parts_list_fragment">
     <fragment
-        android:id="@+id/welcome_fragment"
-        android:name="com.jetpack.carpartsfinder.PartFragment"
+        android:id="@+id/parts_list_fragment"
+        android:name="com.jetpack.carpartsfinder.PartsListFragment"
         android:label="Welcome">
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/sign_in_fragment"-->
-<!--        android:name="com.example.compose.jetsurvey.signinsignup.SignInFragment"-->
-<!--        android:label="Sign in">-->
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/part_fragment"
+        android:name="com.jetpack.carpartsfinder.PartFragment"
+        android:label="Sign in">
+    </fragment>
 <!--    <fragment-->
 <!--        android:id="@+id/sign_up_fragment"-->
 <!--        android:name="com.example.compose.jetsurvey.signinsignup.SignUpFragment"-->
