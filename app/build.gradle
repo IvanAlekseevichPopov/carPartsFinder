@@ -99,3 +99,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 }
+
+detekt {
+    buildUponDefaultConfig = true
+    config = files("$projectDir/../detekt/detekt.yml")
+    baseline = file("$projectDir/../detekt/baseline.xml")
+}

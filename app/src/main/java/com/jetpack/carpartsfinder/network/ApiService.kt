@@ -14,6 +14,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class ApiService {
+    companion object {
+        private const val READ_TIMEOUT = 10L
+        private const val CONNECT_TIMEOUT = 10L
+    }
 
 //    @Singleton
 //    @Provides
@@ -30,14 +34,13 @@ class ApiService {
     @Singleton
     @Provides
     fun providesUserApi(): ApiInterface {
-        var okHttpClient: OkHttpClient?
+        val okHttpClient: OkHttpClient?
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder()
