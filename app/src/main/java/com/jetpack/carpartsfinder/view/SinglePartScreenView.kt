@@ -25,8 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import com.jetpack.carpartsfinder.network.PartResponse
 import com.jetpack.carpartsfinder.ui.theme.Purple500
 
@@ -41,8 +39,8 @@ fun SinglePartScreenView(
     val scaffoldState = rememberScaffoldState()
 //    val screenState = viewModel.uiState.collectAsState()
 //    val partsData = viewModel.getPartsData.observeAsState()
-    val navController = rememberNavController()
 
+//    val navController = rememberNavController()
 //    NavHost(
 //        navController = ,
 //        graph =

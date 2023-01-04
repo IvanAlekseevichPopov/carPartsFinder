@@ -30,7 +30,7 @@ class ApiService {
     @Singleton
     @Provides
     fun providesUserApi(): ApiInterface {
-        var okHttpClient: OkHttpClient? = null
+        var okHttpClient: OkHttpClient?
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
