@@ -13,6 +13,7 @@ class PartRepository @Inject constructor(
         val response = try {
             apiInterface.getParts(searchString)
         } catch (e: Exception) {
+            //TODO обработка ошибок
             return Resource.Error("An unknown error occured: ${e.localizedMessage}")
         }
 

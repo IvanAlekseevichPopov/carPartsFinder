@@ -1,0 +1,14 @@
+#Full default config here https://github.com/detekt/detekt/blob/main/detekt-core/src/main/resources/default-detekt-config.yml
+#Congigured only non default parameters
+complexity:
+  LongMethod:
+    active: true
+    threshold: 75
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+
+style:
+  UnusedPrivateMember:
+    ignoreAnnotated: ['Preview']

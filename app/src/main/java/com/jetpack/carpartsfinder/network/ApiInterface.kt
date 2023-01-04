@@ -6,10 +6,6 @@ import javax.inject.Singleton
 
 @Singleton
 interface ApiInterface {
-
-//    @GET("todos")
-//    suspend fun getUserData(): List<UserResponse>
-
     @GET("/parts")
     suspend fun getParts(@Query("searchString") searchString: String?): List<PartResponse>
 }

@@ -110,7 +110,7 @@ fun PartsScreenView(
 }
 
 @Composable
-@Preview()
+@Preview
 private fun PreviewPartsScreenView() {
     return PartsScreenView(
         parts = null
