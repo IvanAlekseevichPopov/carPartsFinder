@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jetpack.carpartsfinder.ui.theme.CarPartsFinderTheme
+import com.jetpack.carpartsfinder.utils.Analytics
 import com.jetpack.carpartsfinder.view.PartsScreenView
 import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +47,7 @@ class PartsListFragment : Fragment() {
 
     private fun navigate(partId: Int) {
         Log.d("1111", partId.toString())
-        throw RuntimeException("Test Crash") // Force a crash
+        Analytics.event(this.requireContext(), Analytics.SCREEN_PARTS, Analytics.EVENT_CARD_CLICK)
 
         findNavController().navigate(R.id.part_fragment)
     }
