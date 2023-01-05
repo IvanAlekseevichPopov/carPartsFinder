@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "feature/*" ]
 
-jobs:
+jobs: c6UMXZhoB8CCATeFmoCQUc
   unit_tests:
     runs-on: ubuntu-latest
     steps:
@@ -16,7 +16,7 @@ jobs:
         distribution: 'temurin'
         cache: gradle
     - name: Set google-services.json
-      run: echo $GOOGLE_SERVICES_JSON > app/src/google-services.json
+      run: echo ${{ secrets.SOME_ENCODED_STRING }} > app/src/google-services.json
     - name: cat
       run: cat app/src/google-services.json
     - name: Grant execute permission for gradlew
