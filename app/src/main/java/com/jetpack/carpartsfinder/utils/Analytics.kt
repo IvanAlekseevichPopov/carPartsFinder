@@ -24,10 +24,6 @@ object Analytics {
         }
 
         val appsflyer = AppsFlyerLib.getInstance()
-        // For debug - remove in production
-        appsflyer.setDebugLog(true)
-        //optional
-//            appsflyer.setMinTimeBetweenSessions(0)
         appsflyer.init(key, null, context)
         appsflyer.start(context, key, object : AppsFlyerRequestListener {
             override fun onSuccess() {
@@ -54,28 +50,11 @@ object Analytics {
         val params = mutableMapOf<String, Any?>(
             AFInAppEventParameterName.CONTENT_ID to screenName,
             AFInAppEventParameterName.CONTENT_TYPE to eventName,
-//                AFInAppEventParameterName.CUSTOMER_USER_ID to 567,
         )
-//        if (flowName != null) {
-//            params[AFConstant.PAR_CONTENT_TYPE] = flowName
-//        }
         AppsFlyerLib.getInstance().logEvent(
             context,
             AFInAppEventType.CONTENT_VIEW,
-            params,
-//                object : AppsFlyerRequestListener {
-//                    override fun onSuccess() {
-//                        Log.d("!!!!!!!!!!!!!!!!!!!!!!", "Event sent successfully")
-//                    }
-//
-//                    override fun onError(errorCode: Int, errorDesc: String) {
-//                        Log.d(
-//                            "!!!!!!!!!!!!!!!!!!!!!", "Event failed to be sent:\n" +
-//                                "Error code: " + errorCode + "\n"
-//                                + "Error description: " + errorDesc
-//                        )
-//                    }
-//                }
+            params
         )
 
     }
