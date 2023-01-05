@@ -46,6 +46,8 @@ class PartsListFragment : Fragment() {
 
     private fun navigate(partId: Int) {
         Log.d("1111", partId.toString())
+        throw RuntimeException("Test Crash") // Force a crash
+
         findNavController().navigate(R.id.part_fragment)
     }
 }

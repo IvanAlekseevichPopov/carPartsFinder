@@ -15,11 +15,18 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-
+    - name: Set google-services.json
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'google-services.json'
+        fileDir: './app/src/'
+        encodedString: ${{ secrets.GOOGLE_SERVICES_JSON }}
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build apk
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleStage
+    - name: Remove google-services.json
+      run: rm -f app/src/google-services.json
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:

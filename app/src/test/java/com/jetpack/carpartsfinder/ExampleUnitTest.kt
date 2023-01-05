@@ -13,5 +13,5 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
-    }
+    } //TODO remove chashlytics in tests to avoid google-services.json problem
 }
