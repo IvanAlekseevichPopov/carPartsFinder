@@ -24,8 +24,4 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-task jver {
-    doLast {
-        println System.getProperty("java.version")
-    }
-}
+
