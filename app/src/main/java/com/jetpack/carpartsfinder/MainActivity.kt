@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,12 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalLifecycleComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             CarPartsFinderTheme {
                 val navController = rememberNavController()
+
+
 
                 NavHost(
                     navController = navController,
@@ -34,15 +39,20 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable("parts_list") {
                         val viewModel: PartViewModel by viewModels()
-                        PartsScreenView(parts = viewModel.state.observeAsState().value, onSearchPress = { searchString ->
-                            viewModel.beginSearch(searchString)
-                        }, onCardPress = {
+                        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                        PartsScreenView(
+                            screenState = uiState,
+                            onSearchPress = { searchString ->
+                                viewModel.search(searchString)
+                            }) {
                             navController.navigate("parts/$it")
-                        })
+                        }
                     }
                     composable(
-                        "parts/{partId}", arguments = listOf(navArgument("partId") { type = NavType.IntType })
+                        route = "parts/{partId}",
+                        arguments = listOf(navArgument("partId") { type = NavType.IntType })
                     ) { backStackEntry ->
+
                         Text(text = "part screen" + backStackEntry.arguments?.getInt("partId"))
                     }
 

@@ -25,24 +25,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.jetpack.carpartsfinder.network.PartResponse
 import com.jetpack.carpartsfinder.ui.theme.Purple500
+import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 
 //@ExperimentalMaterialApi
 @Composable
 fun PartsScreenView(
-    parts: List<PartResponse>?,
+    screenState: PartViewModel.PartListViewState,
     onSearchPress: (String) -> Unit,
     onCardPress: (Int) -> Unit, //TODO uuid of part
 ) {
-//    val scope = rememberCoroutineScope()
-//    val context = LocalContext.current
     val scaffoldState = rememberScaffoldState()
-//    val screenState = viewModel.uiState.collectAsState()
-//    val partsData = viewModel.getPartsData.observeAsState()
-//    val parts = runBlocking {
-//        repo.getParts(null).data
-//    }
 
     Surface(
         color = MaterialTheme.colors.background,
@@ -84,7 +77,7 @@ fun PartsScreenView(
                     )
                 }
 
-                if (parts == null) {
+                if (screenState.isLoading) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -92,7 +85,7 @@ fun PartsScreenView(
                     ) {
                         CircularProgressIndicator()
                     }
-                } else if (parts.isEmpty()) { //TODO when
+                } else if (screenState.parts.isEmpty()) { //TODO when
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -106,8 +99,8 @@ fun PartsScreenView(
                     LazyColumn(
                         modifier = Modifier.padding(8.dp)
                     ) {
-                        items(parts.size) { index ->
-                            PartItemView(parts[index], onCardPress)
+                        items(screenState.parts.size) { index ->
+                            PartItemView(screenState.parts[index], onCardPress)
                         }
                     }
                 }
