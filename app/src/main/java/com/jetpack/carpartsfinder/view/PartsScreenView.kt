@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jetpack.carpartsfinder.network.PartResponse
 import com.jetpack.carpartsfinder.ui.theme.Purple500
@@ -41,12 +40,9 @@ fun PartsScreenView(
     val scaffoldState = rememberScaffoldState()
 //    val screenState = viewModel.uiState.collectAsState()
 //    val partsData = viewModel.getPartsData.observeAsState()
-
-//    val navController = rememberNavController()
-//    NavHost(
-//        navController = ,
-//        graph =
-//    )
+//    val parts = runBlocking {
+//        repo.getParts(null).data
+//    }
 
     Surface(
         color = MaterialTheme.colors.background,
@@ -88,7 +84,6 @@ fun PartsScreenView(
                     )
                 }
 
-                //TODO добавить, состояние с пустым списком(ничего не найдено)
                 if (parts == null) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
@@ -121,12 +116,12 @@ fun PartsScreenView(
     }
 }
 
-@Composable
-@Preview
-private fun PreviewPartsScreenView() {
-    return PartsScreenView(
-        parts = emptyList(),
-        onCardPress = {},
-        onSearchPress = {}
-    )
-}
+//@Composable
+//@Preview
+//private fun PreviewPartsScreenView() {
+//    return PartsScreenView(
+//        parts = emptyList(),
+//        onCardPress = {},
+//        onSearchPress = {}
+//    )
+//}
