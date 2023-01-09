@@ -2,8 +2,7 @@ package com.jetpack.carpartsfinder.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jetpack.carpartsfinder.dto.ParData
-import com.jetpack.carpartsfinder.dto.PartViewState
+import com.jetpack.carpartsfinder.dto.PartListViewState
 import com.jetpack.carpartsfinder.network.PartRepository
 import com.jetpack.carpartsfinder.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,11 +14,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PartViewModel @Inject constructor(
+class PartListViewModel @Inject constructor(
     private val partRepository: PartRepository
 ) : ViewModel() {
 
-    private val viewModelState = MutableStateFlow(PartViewState.Loading)
+    private val viewModelState = MutableStateFlow(PartListViewState.InitialLoading)
     val uiState = viewModelState
         .stateIn(
             viewModelScope,
@@ -27,28 +26,14 @@ class PartViewModel @Inject constructor(
             viewModelState.value
         )
 
-    fun searchOnePart(uuid: String) {
+    fun search(searchString: String?) {
         viewModelState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
-            val result = partRepository.getPart(uuid)
+            val result = partRepository.getParts(searchString)
             viewModelState.update {
                 when (result) {
-
-                    is Resource.Success -> {
-//                        result.data?.let { responseData ->
-
-                        if (result.data != null) {
-                            val partData = ParData(
-                                id = result.data.id,
-                                manufacturer = result.data.manufacturer,
-                                images = emptyList()
-                            )
-                            it.copy(partData = partData, isLoading = false)
-                        } else {
-                            throw java.lang.RuntimeException()
-                        }
-                    }
+                    is Resource.Success -> it.copy(parts = result.data!!, isLoading = false)
                     else -> {
                         throw java.lang.RuntimeException("viewModelState.update: unknown result$result")
 //                        //TODO обработка ошибок
@@ -56,5 +41,9 @@ class PartViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    init {
+        search(null)
     }
 }

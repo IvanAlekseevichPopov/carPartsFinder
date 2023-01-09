@@ -19,4 +19,15 @@ class PartRepository @Inject constructor(
 
         return Resource.Success(response)
     }
+
+    suspend fun getPart(uuid: String): Resource<SinglePartResponse> {
+        val response = try {
+            apiInterface.getPart(uuid)
+        } catch (e: Exception) {
+            //TODO обработка ошибок общая
+            return Resource.Error("An unknown error occured: ${e.localizedMessage}")
+        }
+
+        return Resource.Success(response)
+    }
 }

@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -15,7 +14,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.jetpack.carpartsfinder.ui.theme.CarPartsFinderTheme
-import com.jetpack.carpartsfinder.view.PartsScreenView
+import com.jetpack.carpartsfinder.view.PartListScreenView
+import com.jetpack.carpartsfinder.view.SinglePartScreenView
+import com.jetpack.carpartsfinder.viewmodel.PartListViewModel
 import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,31 +30,36 @@ class MainActivity : ComponentActivity() {
         setContent {
             CarPartsFinderTheme {
                 val navController = rememberNavController()
-
-
-
                 NavHost(
                     navController = navController,
                     startDestination = "parts_list",
 //                    modifier = modifier
                 ) {
                     composable("parts_list") {
-                        val viewModel: PartViewModel by viewModels()
+                        val viewModel: PartListViewModel by viewModels()
                         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-                        PartsScreenView(
+                        PartListScreenView(
                             screenState = uiState,
                             onSearchPress = { searchString ->
                                 viewModel.search(searchString)
-                            }) {
-                            navController.navigate("parts/$it")
-                        }
+                            },
+                            onCardPress = { partId ->
+                                navController.navigate("parts/$partId")
+                            }
+                        )
                     }
-                    composable(
-                        route = "parts/{partId}",
-                        arguments = listOf(navArgument("partId") { type = NavType.IntType })
-                    ) { backStackEntry ->
 
-                        Text(text = "part screen" + backStackEntry.arguments?.getInt("partId"))
+                    composable(
+                        route = "parts/{id}",
+                        arguments = listOf(navArgument("id") { type = NavType.StringType })
+                    ) { backStackEntry ->
+                        val viewModel: PartViewModel by viewModels()
+                        viewModel.searchOnePart(backStackEntry.arguments?.getString("id") ?: "")
+                        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+                        SinglePartScreenView(
+                            partViewState = uiState,
+                        )
                     }
 
                 }

@@ -36,6 +36,7 @@ class ApiService {
     fun providesUserApi(): ApiInterface {
         val okHttpClient: OkHttpClient?
         val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
@@ -44,7 +45,8 @@ class ApiService {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://639edbc67aaf11ceb88c81e1.mockapi.io")
+            .baseUrl("https://dev-54ta5gq-snpoahtd2a2hk.fr-3.platformsh.site")
+//            .baseUrl("https://639edbc67aaf11ceb88c81e1.mockapi.io")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

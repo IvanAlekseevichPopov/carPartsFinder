@@ -26,7 +26,7 @@ import com.jetpack.carpartsfinder.network.PartResponse
 @Composable
 fun PartItemView(
     part: PartResponse,
-    onClick: (Int) -> Unit,
+    onClick: (String) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -79,7 +79,7 @@ fun PartItemView(
 fun PreviewPartItemView() {
     PartItemView(
         PartResponse(
-            1,
+            "uuid",
             "as34wt",
             "honda",
             "asdfadsf"
