@@ -1,5 +1,6 @@
 package com.jetpack.carpartsfinder.network
 
+import android.util.Log
 import com.jetpack.carpartsfinder.utils.RemoteConfigInterface
 import dagger.Module
 import dagger.Provides
@@ -46,7 +47,7 @@ class ApiService {
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .build()
 
-//        Log.d("!!!!!!!!", config.getBaseUrl())
+//        Log.d("!!!", config.getBaseUrl())
         return Retrofit.Builder()
 //            .baseUrl(RemoteConfig.getBaseUrl())
             .baseUrl("https://639edbc67aaf11ceb88c81e1.mockapi.io")

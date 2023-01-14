@@ -17,6 +17,8 @@ private const val FETCH_INTERVAL_IN_SECONDS = 60 * 30L
 class RemoteConfig: RemoteConfigInterface {
     private lateinit var baseUrl: String
 
+    private var loaded = false
+
     @Singleton
     @Provides
     fun provideRemoteConfig(): RemoteConfigInterface {
@@ -37,6 +39,7 @@ class RemoteConfig: RemoteConfigInterface {
             if (!BuildConfig.DEBUG) {
                 fetchAndActivate().addOnSuccessListener {
                     applyFirebaseConfig(FirebaseRemoteConfig.getInstance())
+                    loaded = true
                 }
             }
 
@@ -50,7 +53,11 @@ class RemoteConfig: RemoteConfigInterface {
         baseUrl = config.getString("baseUrl")
     }
 
+    //TODO maybe suspend will work here?
     override fun getBaseUrl(): String {
+//        while (loaded != true ) {
+//            Thread.sleep(100)
+//        }
         return this.baseUrl
     }
 
