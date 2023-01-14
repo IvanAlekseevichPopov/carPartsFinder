@@ -1,4 +1,4 @@
-package com.jetpack.carpartsfinder.utils
+package com.jetpack.carpartsfinder.util
 
 import javax.inject.Singleton
 

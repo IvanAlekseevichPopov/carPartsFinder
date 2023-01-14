@@ -1,4 +1,4 @@
-package com.jetpack.carpartsfinder.utils
+package com.jetpack.carpartsfinder.util
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
