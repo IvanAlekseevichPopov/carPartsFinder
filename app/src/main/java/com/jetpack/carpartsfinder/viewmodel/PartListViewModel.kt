@@ -26,6 +26,7 @@ class PartListViewModel @Inject constructor(
             viewModelState.value
         )
 
+        //TODO переделать работу со стейтом, по примеру partViewModel
     fun search(searchString: String?) {
         viewModelState.update { it.copy(isLoading = true) }
 
@@ -35,7 +36,7 @@ class PartListViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> it.copy(parts = result.data!!, isLoading = false)
                     else -> {
-                        throw java.lang.RuntimeException("viewModelState.update: unknown result$result")
+                        throw java.lang.RuntimeException("viewModelState.update: unknown result${result.message} ${result.data}")
 //                        //TODO обработка ошибок
                     }
                 }

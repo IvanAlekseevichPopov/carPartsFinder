@@ -20,6 +20,11 @@ import com.jetpack.carpartsfinder.viewmodel.PartListViewModel
 import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+object Navigation {
+    const val PARTS_LIST = "parts"
+    const val PART = "parts/{id}"
+}
+
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -32,39 +37,43 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "parts_list",
-//                    modifier = modifier
+                    startDestination = Navigation.PARTS_LIST,
                 ) {
-                    composable("parts_list") {
-                        val viewModel: PartListViewModel by viewModels()
-                        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-                        PartListScreenView(
-                            screenState = uiState,
-                            onSearchPress = { searchString ->
-                                viewModel.search(searchString)
-                            },
-                            onCardPress = { partId ->
-                                navController.navigate("parts/$partId")
-                            }
-                        )
-                    }
+                    composable(
+                        route = "parts",
+                        content = { _ ->
+                            val viewModel: PartListViewModel by viewModels()
+                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                            PartListScreenView(
+                                screenState = uiState,
+                                onSearchPress = { searchString ->
+                                    viewModel.search(searchString)
+                                },
+                                onCardPress = { partId ->
+                                    navController.navigate("parts/$partId")
+                                }
+                            )
+                        }
+                    )
 
                     composable(
-                        route = "parts/{id}",
-                        arguments = listOf(navArgument("id") { type = NavType.StringType })
-                    ) { backStackEntry ->
-                        val viewModel: PartViewModel by viewModels()
-                        viewModel.searchOnePart(backStackEntry.arguments?.getString("id") ?: "")
-                        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                        route = Navigation.PART,
+                        arguments = listOf(navArgument("id") { type = NavType.StringType }),
+                        content = { backStackEntry ->
+                            val viewModel: PartViewModel by viewModels()
+                            viewModel.searchOnePart(backStackEntry.arguments?.getString("id") ?: "")
+                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-                        SinglePartScreenView(
-                            partViewState = uiState,
-                        )
-                    }
+                            SinglePartScreenView(
+                                screenState = uiState,
+                            )
+                        }
+                    )
 
                 }
             }
         }
     }
+
 }
 
