@@ -9,11 +9,7 @@ class PartApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        var afDevKey: String? = resources.getString(R.string.appsflyerDevKey)
-        if(afDevKey?.isEmpty() == true) {
-            afDevKey = null
-        }
-
-        Analytics.init(afDevKey, this.applicationContext)
+        Analytics.init(this.applicationContext)
+//        RemoteConfig.initFirebaseRemoteConfig()
     }
 }

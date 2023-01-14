@@ -6,19 +6,21 @@ import com.appsflyer.AFInAppEventParameterName
 import com.appsflyer.AFInAppEventType
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
+import com.jetpack.carpartsfinder.R
 
-object Analytics {
+object Analytics { //TODO inject context by hilt
     const val SCREEN_PARTS = "parts_list_screen"
     const val EVENT_CARD_CLICK = "card_click"
 
     private const val TAG = "analytics"
     private var isInit = false
 
-    fun init(key: String?, context: Context) {
+    fun init(context: Context) {
         if (isInit) {
             return
         }
-        if (key == null) {
+        val key: String = context.resources.getString(R.string.appsflyerDevKey)
+        if(key.isEmpty()) {
             Log.i(TAG, "Empty key. Appslfyer not initialized")
             return
         }
@@ -44,6 +46,8 @@ object Analytics {
     fun event(context: Context, screenName: String, eventName: String) {
         //TODO enum for screen name and event name
         if (!isInit) {
+            Log.d(TAG, "Appsflyer not initialized. Event won't be sent")
+
             return
         }
 
