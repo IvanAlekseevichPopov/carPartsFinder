@@ -4,5 +4,5 @@ data class SinglePartResponse(
     val id: String,
     val partNumber: String,
     val manufacturer: String,
-    val images: List<String>
+//TODO    val images: List<ImageResponse>
 )

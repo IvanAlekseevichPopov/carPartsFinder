@@ -1,7 +1,7 @@
 package com.jetpack.carpartsfinder.dto
 
 data class PartViewState(
-    val partData: ParData?,
+    val partData: PartData?,
 ) {
     companion object {
         val Loading = PartViewState(

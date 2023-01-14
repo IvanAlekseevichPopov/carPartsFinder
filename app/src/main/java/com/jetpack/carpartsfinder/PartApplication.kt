@@ -1,7 +1,7 @@
 package com.jetpack.carpartsfinder
 
 import android.app.Application
-import com.jetpack.carpartsfinder.utils.Analytics
+import com.jetpack.carpartsfinder.util.Analytics
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

@@ -1,6 +1,6 @@
 package com.jetpack.carpartsfinder.network
 
-import com.jetpack.carpartsfinder.utils.Resource
+import com.jetpack.carpartsfinder.util.Resource
 import dagger.hilt.android.scopes.ActivityScoped
 import java.lang.Exception
 import javax.inject.Inject

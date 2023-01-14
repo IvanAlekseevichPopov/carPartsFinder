@@ -1,8 +1,8 @@
 package com.jetpack.carpartsfinder.dto
 
-data class ParData(
+data class PartData(
     val id: String,
     val partNumber: String,
     val manufacturer: String,
-    val images: List<Image>,
+    val images: List<ImageData>,
 )

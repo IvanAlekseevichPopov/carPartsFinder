@@ -22,8 +22,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.jetpack.carpartsfinder.dto.ParData
+import com.jetpack.carpartsfinder.dto.PartData
 import com.jetpack.carpartsfinder.dto.PartViewState
+import com.jetpack.carpartsfinder.view.component.SpacerType
+import com.jetpack.carpartsfinder.view.component.SpacerView
 
 //@ExperimentalMaterialApi
 @OptIn(ExperimentalFoundationApi::class)
@@ -65,7 +67,7 @@ fun SinglePartScreenView(
                         style = MaterialTheme.typography.h5
                     )
                 }
-                Spacer(modifier = Modifier.size(12.dp))
+                SpacerView(type = SpacerType.Horizontal(12.dp))
                 LazyVerticalGrid(
                     cells = GridCells.Adaptive(200.dp),
                 ) {
@@ -90,7 +92,7 @@ fun SinglePartScreenView(
 private fun PreviewSinglePartScreenView() {
     return SinglePartScreenView(
         screenState = PartViewState(
-            partData = ParData(
+            partData = PartData(
                 id = "1",
                 manufacturer = "BMW",
                 images = listOf(),
