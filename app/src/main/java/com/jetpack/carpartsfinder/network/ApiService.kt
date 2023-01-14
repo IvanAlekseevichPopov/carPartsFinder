@@ -1,6 +1,5 @@
 package com.jetpack.carpartsfinder.network
 
-import android.util.Log
 import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import dagger.Module
 import dagger.Provides

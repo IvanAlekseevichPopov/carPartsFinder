@@ -27,13 +27,10 @@ import com.jetpack.carpartsfinder.dto.PartViewState
 import com.jetpack.carpartsfinder.view.component.SpacerType
 import com.jetpack.carpartsfinder.view.component.SpacerView
 
-//@ExperimentalMaterialApi
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SinglePartScreenView(
     screenState: PartViewState,
 ) {
-    Log.d("!!!", screenState.partData.toString())
     Surface(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize()
