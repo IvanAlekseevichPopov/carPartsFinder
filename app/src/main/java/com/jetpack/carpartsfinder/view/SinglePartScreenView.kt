@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -69,7 +69,7 @@ fun SinglePartScreenView(
                 }
                 SpacerView(type = SpacerType.Horizontal(12.dp))
                 LazyVerticalGrid(
-                    cells = GridCells.Adaptive(200.dp),
+                    columns = GridCells.Adaptive(200.dp),
                 ) {
                     items(screenState.partData.images.size) { index ->
                         AsyncImage(
