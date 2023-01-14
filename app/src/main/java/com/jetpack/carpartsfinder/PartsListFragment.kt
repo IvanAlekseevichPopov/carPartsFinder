@@ -17,7 +17,7 @@ import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PartsListFragment : Fragment() {
+class PartsListFragment: Fragment() {
 
     private val viewModel: PartViewModel by viewModels()
 
@@ -37,6 +37,7 @@ class PartsListFragment : Fragment() {
                             viewModel.beginSearch(searchString)
                         },
                         onCardPress = { partId ->
+//                            Log.d("remote", remoteConfig.getBaseUrl())
                             navigate(partId)
                         }
                     )

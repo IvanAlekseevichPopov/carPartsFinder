@@ -4,18 +4,18 @@ android app for search car parst photos
 
 TODO
 done карточку в результатах поиска в отдельный компонент
-click on card
+done click on card
+done вернуть crashlitics
+done включать только в прод сборку и на гитхабе(local dev -nope)
+done обезопасить google-services.json для git only(secrets)
+done appsflyer
 
-+вернуть crashlitics
-+включать только в прод сборку и на гитхабе(local dev -nope)
--обезопасить google-services.json для git only(secrets)
+
+remote config firebase
 
 
-
-appsflyer
 smartlook
 сверстать карточку
-remote config firebase
 добавить интерактивную проверку согласия при выполнении detekt baseline
 AppsFlyer events(only for prod)
 Smartlook(only for prod)
