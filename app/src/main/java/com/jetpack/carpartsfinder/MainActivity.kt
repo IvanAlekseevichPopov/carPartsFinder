@@ -14,11 +14,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.jetpack.carpartsfinder.ui.theme.CarPartsFinderTheme
+import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import com.jetpack.carpartsfinder.view.PartListScreenView
 import com.jetpack.carpartsfinder.view.SinglePartScreenView
+import com.jetpack.carpartsfinder.view.StartScreenView
 import com.jetpack.carpartsfinder.viewmodel.PartListViewModel
 import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 object Navigation {
     const val PARTS_LIST = "parts"
@@ -27,20 +30,30 @@ object Navigation {
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity: ComponentActivity() {
+
+    @Inject
+    lateinit var remoteConfig: RemoteConfigInterface
+
+
     @OptIn(ExperimentalLifecycleComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             CarPartsFinderTheme {
+                if(!remoteConfig.isConfigReady.collectAsStateWithLifecycle().value) {
+                    StartScreenView()
+                    return@CarPartsFinderTheme
+                }
+
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
                     startDestination = Navigation.PARTS_LIST,
                 ) {
                     composable(
-                        route = "parts",
+                        route = Navigation.PARTS_LIST,
                         content = { _ ->
                             val viewModel: PartListViewModel by viewModels()
                             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -69,7 +82,6 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     )
-
                 }
             }
         }

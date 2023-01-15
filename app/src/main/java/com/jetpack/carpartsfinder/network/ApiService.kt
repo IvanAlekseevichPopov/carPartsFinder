@@ -20,12 +20,6 @@ class ApiService {
         private const val CONNECT_TIMEOUT = 10L
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideUserRepository(
-//        api: ApiInterface
-//    ) = UserRespository(api)
-
     @Singleton
     @Provides
     fun providePartRepository(
@@ -47,10 +41,8 @@ class ApiService {
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .build()
 
-//        Log.d("!!!", config.getBaseUrl())
         return Retrofit.Builder()
-//            .baseUrl(RemoteConfig.getBaseUrl())
-            .baseUrl("https://dev-54ta5gq-snpoahtd2a2hk.fr-3.platformsh.site")
+            .baseUrl(config.getBaseUrl())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

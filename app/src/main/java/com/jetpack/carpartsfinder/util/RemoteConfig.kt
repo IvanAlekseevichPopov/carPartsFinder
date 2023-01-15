@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Singleton
 
 private const val FETCH_INTERVAL_IN_SECONDS = 60 * 30L
@@ -15,13 +17,16 @@ private const val FETCH_INTERVAL_IN_SECONDS = 60 * 30L
 @InstallIn(SingletonComponent::class)
 @Module
 class RemoteConfig: RemoteConfigInterface {
-    private lateinit var baseUrl: String
+    private val configReady = MutableStateFlow(false)
+    override val isConfigReady: StateFlow<Boolean> = configReady
 
-    private var loaded = false
+    private lateinit var baseUrl: String
 
     @Singleton
     @Provides
     fun provideRemoteConfig(): RemoteConfigInterface {
+        val prod = !BuildConfig.DEBUG
+
         FirebaseRemoteConfig.getInstance().apply {
             if (BuildConfig.DEBUG) {
                 reset()
@@ -34,12 +39,15 @@ class RemoteConfig: RemoteConfigInterface {
 
             setDefaultsAsync(R.xml.remote_config).addOnSuccessListener {
                 applyFirebaseConfig(FirebaseRemoteConfig.getInstance())
+                if(!prod) {
+                    configReady.value = true
+                }
             }
 
-            if (!BuildConfig.DEBUG) {
+            if (prod) {
                 fetchAndActivate().addOnSuccessListener {
                     applyFirebaseConfig(FirebaseRemoteConfig.getInstance())
-                    loaded = true
+                    configReady.value = true
                 }
             }
 
@@ -53,11 +61,7 @@ class RemoteConfig: RemoteConfigInterface {
         baseUrl = config.getString("baseUrl")
     }
 
-    //TODO maybe suspend will work here?
     override fun getBaseUrl(): String {
-//        while (loaded != true ) {
-//            Thread.sleep(100)
-//        }
         return this.baseUrl
     }
 
