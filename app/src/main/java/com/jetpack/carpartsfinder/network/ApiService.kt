@@ -1,7 +1,6 @@
 package com.jetpack.carpartsfinder.network
 
-import android.util.Log
-import com.jetpack.carpartsfinder.utils.RemoteConfigInterface
+import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,12 +20,6 @@ class ApiService {
         private const val CONNECT_TIMEOUT = 10L
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideUserRepository(
-//        api: ApiInterface
-//    ) = UserRespository(api)
-
     @Singleton
     @Provides
     fun providePartRepository(
@@ -40,6 +33,7 @@ class ApiService {
     ): ApiInterface {
         val okHttpClient: OkHttpClient?
         val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
@@ -47,10 +41,8 @@ class ApiService {
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .build()
 
-//        Log.d("!!!", config.getBaseUrl())
         return Retrofit.Builder()
-//            .baseUrl(RemoteConfig.getBaseUrl())
-            .baseUrl("https://639edbc67aaf11ceb88c81e1.mockapi.io")
+            .baseUrl(config.getBaseUrl())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

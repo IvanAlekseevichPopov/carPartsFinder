@@ -1,6 +1,6 @@
-package com.jetpack.carpartsfinder.network
+package com.jetpack.carpartsfinder.dto
 
-data class PartResponse(
+data class PartListItemData(
     val id: String,
     val partNumber: String,
     val manufacturer: String,

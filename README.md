@@ -9,13 +9,19 @@ done вернуть crashlitics
 done включать только в прод сборку и на гитхабе(local dev -nope)
 done обезопасить google-services.json для git only(secrets)
 done appsflyer
-
-
 remote config firebase
+click on card
++вернуть crashlitics
++включать только в прод сборку и на гитхабе(local dev -nope)
++обезопасить google-services.json для git only(secrets)
++appsflyer
++remote config firebase
+
+сверстать карточку(картинки блочат с бэка)
 
 
 smartlook
-сверстать карточку
+
 добавить интерактивную проверку согласия при выполнении detekt baseline
 AppsFlyer events(only for prod)
 Smartlook(only for prod)

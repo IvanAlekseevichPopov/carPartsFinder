@@ -21,12 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.jetpack.carpartsfinder.network.PartResponse
+import com.jetpack.carpartsfinder.dto.PartListItemData
 
 @Composable
 fun PartItemView(
-    part: PartResponse,
-    onClick: (Int) -> Unit,
+    part: PartListItemData,
+    onClick: (String) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -78,13 +78,13 @@ fun PartItemView(
 @Preview()
 fun PreviewPartItemView() {
     PartItemView(
-        PartResponse(
-            1,
+        part = PartListItemData(
+            "uuid",
             "as34wt",
             "honda",
             "asdfadsf"
         ),
-        {}
+        onClick = {}
     )
 }
 
