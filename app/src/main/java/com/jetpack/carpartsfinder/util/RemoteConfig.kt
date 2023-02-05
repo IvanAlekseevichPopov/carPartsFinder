@@ -21,6 +21,7 @@ class RemoteConfig: RemoteConfigInterface {
     override val isConfigReady: StateFlow<Boolean> = configReady
 
     private lateinit var baseUrl: String
+    private lateinit var externalBaseUrl: String
 
     @Singleton
     @Provides
@@ -59,11 +60,17 @@ class RemoteConfig: RemoteConfigInterface {
 
     private fun applyFirebaseConfig(config: FirebaseRemoteConfig) {
         baseUrl = config.getString("baseUrl")
+        externalBaseUrl = config.getString("externalBaseUrl")
     }
 
     override fun getBaseUrl(): String {
         return this.baseUrl
     }
+
+    override fun getExternalBaseUrl(): String {
+        return this.externalBaseUrl
+    }
+
 
 }
 
