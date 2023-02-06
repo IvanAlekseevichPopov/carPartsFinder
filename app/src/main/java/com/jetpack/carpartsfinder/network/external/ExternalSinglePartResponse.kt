@@ -1,9 +1,15 @@
 package com.jetpack.carpartsfinder.network.external
 
-data class ExternalSinglePartResponse(
-    val id: String,
-    val partNumber: String,
-    val manufacturer: String,
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import java.util.stream.Stream
 
-//TODO    val images: List<ImageResponse>
+@Serializable
+data class ExternalImageResponse(
+    @SerialName("fotoUrls") val images: List<String>,
+)
+
+data class ExternalSinglePartResponse constructor(
+    val partData: ExternalPartResponse,
+    val images: List<String>,
 )

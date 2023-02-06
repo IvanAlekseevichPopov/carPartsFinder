@@ -12,4 +12,12 @@ class ImageMapper @Inject constructor() {
             rating = imageResponse.rating
         )
     }
+
+    fun mapExternal(imageResponse: String): ImageData {
+        return ImageData(
+            id = imageResponse,
+            path = imageResponse,
+            rating = null
+        )
+    }
 }

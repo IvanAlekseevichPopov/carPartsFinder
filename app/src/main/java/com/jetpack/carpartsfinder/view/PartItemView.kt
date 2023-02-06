@@ -32,7 +32,8 @@ fun PartItemView(
         modifier = Modifier
             .clickable(
                 onClick = {
-                    onClick(part.id) //TODO попробовать вынести наверх
+//                    onClick(part.id)
+                    onClick(part.partNumber) //TODO попробовать вынести наверх
                 }
             )
             .padding(4.dp)

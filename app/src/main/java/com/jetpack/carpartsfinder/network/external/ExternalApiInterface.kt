@@ -12,6 +12,6 @@ interface ExternalApiInterface {
     @GET("/api/manufacturers/{searchString}?showAll=false")
     suspend fun getParts(@Path("searchString") searchString: String): List<ExternalPartResponse>
 
-    @GET("/api/parts/{id}")
-    suspend fun getPart(@Path("id") id: String): SinglePartResponse
+    @GET("/api/spareparts/{id}/{partNumber}/2?isrecross=false")
+    suspend fun getPart(@Path("id") id: String, @Path("partNumber") partNumber: String): ExternalImageResponse
 }

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ExternalPartResponse(
-    @SerialName("id") val id: Int,
+    @SerialName("id") val manufacturerId: Int,
     @SerialName("artNumber") val partNumber: String,
     @SerialName("manufacturerName") val manufacturer: String,
 )

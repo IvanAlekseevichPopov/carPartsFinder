@@ -17,7 +17,7 @@ class PartListMapper @Inject constructor() {
 
     fun mapExternal(partResponse: ExternalPartResponse): PartListItemData {
         return PartListItemData(
-            id = partResponse.id.toString(),
+            id = partResponse.manufacturerId.toString(),
             partNumber = partResponse.partNumber,
             manufacturer = partResponse.manufacturer,
             previewImage = ""

@@ -22,7 +22,6 @@ class PartViewModel @Inject constructor(
     private val partRepository: ExternalPartRepository,
     private val partMapper: PartMapper
 ) : ViewModel() {
-
     private val viewModelState = MutableStateFlow(PartViewState.Loading)
     val uiState: StateFlow<PartViewState> = viewModelState
 
@@ -33,7 +32,7 @@ class PartViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         viewModelState.value = PartViewState(
-                            partData = partMapper.map(result.data!!),
+                            partData = partMapper.mapExternal(result.data!!),
                         )
                     }
 

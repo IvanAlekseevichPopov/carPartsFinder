@@ -7,11 +7,9 @@
     <ID>MagicNumber:Color.kt$0xFF6200EE</ID>
     <ID>MagicNumber:Color.kt$0xFFBB86FC</ID>
     <ID>MatchingDeclarationName:SpacerView.kt$SpacerType</ID>
+    <ID>ReturnCount:ExternalPartRepository.kt$ExternalPartRepository$suspend fun getPart(id: String): Resource&lt;ExternalSinglePartResponse&gt;</ID>
+    <ID>TooGenericExceptionCaught:ExternalPartRepository.kt$ExternalPartRepository$e: Exception</ID>
     <ID>TooGenericExceptionCaught:PartRepository.kt$PartRepository$e: Exception</ID>
     <ID>TooGenericExceptionThrown:PartListViewModel.kt$PartListViewModel$throw RuntimeException("viewModelState.update: unknown result${result.message} ${result.data}")</ID>
-    <ID>UnusedPrivateMember:PartMapper.kt$PartMapper$private var imageMapper: ImageMapper</ID>
-    <ID>UnusedPrivateMember:ApiService.kt$ApiService$config: RemoteConfigInterface</ID>
-    <ID>UnusedPrivateMember:SinglePartScreenView.kt$onSearchChange: (String) -&gt; Unit</ID>
-    <ID>UnusedPrivateMember:SinglePartScreenView.kt$parts: List&lt;PartResponse&gt;?</ID>
   </CurrentIssues>
 </SmellBaseline>
