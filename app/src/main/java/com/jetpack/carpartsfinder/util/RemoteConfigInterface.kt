@@ -8,4 +8,6 @@ interface RemoteConfigInterface {
     val isConfigReady: StateFlow<Boolean>
 
     fun getBaseUrl(): String
+
+    fun getExternalBaseUrl(): String
 }

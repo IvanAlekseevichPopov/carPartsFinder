@@ -1,14 +1,18 @@
 package com.jetpack.carpartsfinder.network
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+//import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -26,6 +30,7 @@ class ApiService {
         api: ApiInterface
     ) = PartRepository(api)
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Singleton
     @Provides
     fun providesUserApi(
@@ -43,7 +48,7 @@ class ApiService {
 
         return Retrofit.Builder()
             .baseUrl(config.getBaseUrl())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .client(okHttpClient)
             .build()
             .create(ApiInterface::class.java)

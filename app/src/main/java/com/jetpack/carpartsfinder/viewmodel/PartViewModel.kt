@@ -7,6 +7,7 @@ import com.google.firebase.ktx.Firebase
 import com.jetpack.carpartsfinder.dto.PartViewState
 import com.jetpack.carpartsfinder.mapper.PartMapper
 import com.jetpack.carpartsfinder.network.PartRepository
+import com.jetpack.carpartsfinder.network.external.ExternalPartRepository
 import com.jetpack.carpartsfinder.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PartViewModel @Inject constructor(
-    private val partRepository: PartRepository,
+    private val partRepository: ExternalPartRepository,
     private val partMapper: PartMapper
 ) : ViewModel() {
-
     private val viewModelState = MutableStateFlow(PartViewState.Loading)
     val uiState: StateFlow<PartViewState> = viewModelState
 
@@ -32,7 +32,7 @@ class PartViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         viewModelState.value = PartViewState(
-                            partData = partMapper.map(result.data!!),
+                            partData = partMapper.mapExternal(result.data!!),
                         )
                     }
 
