@@ -7,6 +7,7 @@
     <ID>MagicNumber:Color.kt$0xFF6200EE</ID>
     <ID>MagicNumber:Color.kt$0xFFBB86FC</ID>
     <ID>MatchingDeclarationName:SpacerView.kt$SpacerType</ID>
+    <ID>MaxLineLength:ExternalApiService.kt$ExternalApiService$.</ID>
     <ID>ReturnCount:ExternalPartRepository.kt$ExternalPartRepository$suspend fun getPart(id: String): Resource&lt;ExternalSinglePartResponse&gt;</ID>
     <ID>TooGenericExceptionCaught:ExternalPartRepository.kt$ExternalPartRepository$e: Exception</ID>
     <ID>TooGenericExceptionCaught:PartRepository.kt$PartRepository$e: Exception</ID>
