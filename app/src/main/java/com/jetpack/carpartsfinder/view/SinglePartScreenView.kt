@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.jetpack.carpartsfinder.dto.PartData
 import com.jetpack.carpartsfinder.dto.PartViewState
+import com.jetpack.carpartsfinder.view.component.ImageGalleryView
 import com.jetpack.carpartsfinder.view.component.SpacerType
 import com.jetpack.carpartsfinder.view.component.SpacerView
 
@@ -63,19 +63,8 @@ fun SinglePartScreenView(
                     )
                 }
                 SpacerView(type = SpacerType.Horizontal(12.dp))
-                LazyVerticalGrid(
-                    columns = GridCells.Adaptive(200.dp),
-                ) {
-                    items(screenState.partData.images.size) { index ->
-                        AsyncImage(
-                            model = screenState.partData.images.get(index).path,
-//                            modifier = Modifier
-//                                .padding(8.dp)
-//                                .size(200.dp),
-                            contentDescription = screenState.partData.manufacturer,
-                        )
-                    }
-                }
+
+                ImageGalleryView(images = screenState.partData.images.map { it.path })
             }
         }
     }
