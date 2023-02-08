@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,46 +28,43 @@ import com.jetpack.carpartsfinder.view.component.SpacerView
 fun SinglePartScreenView(
     screenState: PartViewState,
 ) {
-    Surface(
-        color = MaterialTheme.colors.background,
-        modifier = Modifier.fillMaxSize()
-    ) {
 
-        if (screenState.partData == null) {
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                CircularProgressIndicator(
-                    Modifier.size(100.dp) //TODO size from theme
+    if (screenState.partData == null) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            CircularProgressIndicator(
+                Modifier.size(100.dp) //TODO size from theme
+            )
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+//                .padding(16.dp),
+        ) {
+            Row {
+                Text(
+                    text = screenState.partData.manufacturer,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.h5,
+                )
+                Spacer(modifier = Modifier.size(12.dp))
+                Text(
+                    text = screenState.partData.partNumber,
+                    style = MaterialTheme.typography.h5
                 )
             }
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+            SpacerView(type = SpacerType.Horizontal(12.dp))
+            Surface(
+                color = Color.Red,
+                modifier = Modifier.fillMaxSize()
             ) {
-                Row {
-                    Text(
-                        text = screenState.partData.manufacturer,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.h5,
-                    )
-                    Spacer(modifier = Modifier.size(12.dp))
-                    Text(
-                        text = " 2352353252",
-                        style = MaterialTheme.typography.h5
-                    )
-                }
-                SpacerView(type = SpacerType.Horizontal(12.dp))
-
                 ImageGalleryView(images = screenState.partData.images.map { it.path })
             }
         }
     }
-
 }
 
 @Composable
