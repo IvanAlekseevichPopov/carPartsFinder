@@ -1,4 +1,4 @@
-package com.jetpack.carpartsfinder.view
+package com.jetpack.carpartsfinder.view.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

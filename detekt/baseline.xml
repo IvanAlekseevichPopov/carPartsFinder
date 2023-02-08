@@ -6,11 +6,13 @@
     <ID>MagicNumber:Color.kt$0xFF3700B3</ID>
     <ID>MagicNumber:Color.kt$0xFF6200EE</ID>
     <ID>MagicNumber:Color.kt$0xFFBB86FC</ID>
+    <ID>MagicNumber:ExternalPartRepository.kt$ExternalPartRepository$20</ID>
     <ID>MatchingDeclarationName:SpacerView.kt$SpacerType</ID>
     <ID>MaxLineLength:ExternalApiService.kt$ExternalApiService$.</ID>
     <ID>ReturnCount:ExternalPartRepository.kt$ExternalPartRepository$suspend fun getPart(id: String): Resource&lt;ExternalSinglePartResponse&gt;</ID>
     <ID>TooGenericExceptionCaught:ExternalPartRepository.kt$ExternalPartRepository$e: Exception</ID>
     <ID>TooGenericExceptionCaught:PartRepository.kt$PartRepository$e: Exception</ID>
     <ID>TooGenericExceptionThrown:PartListViewModel.kt$PartListViewModel$throw RuntimeException("viewModelState.update: unknown result${result.message} ${result.data}")</ID>
+    <ID>UnusedPrivateMember:ImageGalleryView.kt$modifier: Modifier = Modifier</ID>
   </CurrentIssues>
 </SmellBaseline>
