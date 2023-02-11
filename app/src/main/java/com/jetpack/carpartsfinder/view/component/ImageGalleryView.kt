@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
@@ -33,11 +34,13 @@ import com.jetpack.carpartsfinder.R
 fun ImageGalleryView(
     images: List<String>,
     modifier: Modifier = Modifier,
+    space: Dp = 8.dp
 ) {
     LazyVerticalGrid(
+        modifier = modifier,
         columns = GridCells.Adaptive(minSize = 128.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(space),
+        horizontalArrangement = Arrangement.spacedBy(space)
     ) {
         items(images.size) { index ->
             if (LocalInspectionMode.current) {
