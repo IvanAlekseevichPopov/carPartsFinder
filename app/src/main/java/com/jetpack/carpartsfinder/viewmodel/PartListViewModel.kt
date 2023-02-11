@@ -19,13 +19,13 @@ import javax.inject.Inject
 class PartListViewModel @Inject constructor(
     private val partRepository: ExternalPartRepository,
     private val partListMapper: PartListMapper
-) : ViewModel() {
+) : ViewModel(), UiPartListViewModel {
 
     private val viewModelState = MutableStateFlow(PartListViewState.InitialLoading)
-    val uiState: StateFlow<PartListViewState> = viewModelState
+    override val uiState: StateFlow<PartListViewState> = viewModelState
 
     //TODO переделать работу со стейтом, по примеру partViewModel
-    fun search(searchString: String?) {
+    override fun search(searchString: String?) {
         viewModelState.value = PartListViewState.InitialLoading
 
         viewModelScope.launch {
