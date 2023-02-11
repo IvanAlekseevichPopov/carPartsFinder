@@ -16,14 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun CircularProgressView(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.background
+    backgroundColor: Color = MaterialTheme.colors.background,
 ) {
     Surface(color = backgroundColor, modifier = modifier) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator(color = MaterialTheme.colors.primary)
+            CircularProgressIndicator()
         }
     }
 }
@@ -35,6 +35,5 @@ fun ContentWithProgressPreview() {
         modifier = Modifier.fillMaxSize(),
     ) {
         CircularProgressView(backgroundColor = MaterialTheme.colors.background)
-
     }
 }

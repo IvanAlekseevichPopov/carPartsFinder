@@ -46,6 +46,11 @@ class ExternalPartRepository @Inject constructor(
             return Resource.Error("An unknown error occured: ${e.localizedMessage}")
         }
 
-        return Resource.Success(ExternalSinglePartResponse(part, imageData.images))
+        var images = mutableListOf<String>()
+        repeat(20) {
+            images.add(imageData.images.first())
+        }
+
+        return Resource.Success(ExternalSinglePartResponse(part, images))
     }
 }
