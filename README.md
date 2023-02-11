@@ -16,14 +16,15 @@ click on card
 +обезопасить google-services.json для git only(secrets)
 +appsflyer
 +remote config firebase
++сверстать карточку(картинки блочат с бэка)
 
-сверстать карточку(картинки блочат с бэка)
+
+Material тема совместимая с темным режимом
 
 
-smartlook
-
-добавить интерактивную проверку согласия при выполнении detekt baseline
 AppsFlyer events(only for prod)
+smartlook
+добавить интерактивную проверку согласия при выполнении detekt baseline
 Smartlook(only for prod)
 подкдлючение R8 для сборки прод версии
 UI module with basic components and theme constants
