@@ -7,25 +7,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jetpack.carpartsfinder.dto.ImageData
-import com.jetpack.carpartsfinder.dto.PartData
-import com.jetpack.carpartsfinder.dto.PartViewState
 import com.jetpack.carpartsfinder.view.component.CircularProgressView
 import com.jetpack.carpartsfinder.view.component.HorizontalSpacer
 import com.jetpack.carpartsfinder.view.component.ImageGalleryView
+import com.jetpack.carpartsfinder.view.component.ImageScreen
 import com.jetpack.carpartsfinder.view.component.VerticalSpacer
+import com.jetpack.carpartsfinder.viewmodel.UIPartViewModel
 
 @Composable
 fun SinglePartScreenView(
-    screenState: PartViewState,
+    viewModel: UIPartViewModel
 ) {
-    if (screenState.partData == null) {
-        CircularProgressView()
-    } else {
+    val partDataState = viewModel.partDataState.collectAsState()
+    val zoomedImage = viewModel.zoomedImage.collectAsState()
+
+    partDataState.value?.let { partData ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -34,38 +34,35 @@ fun SinglePartScreenView(
             Row {
                 //TODO onclick on manufacturer
                 Text(
-                    text = screenState.partData.manufacturer,
+                    text = partData.manufacturer,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.h5,
                 )
                 HorizontalSpacer(size = 12.dp)
                 Text(
-                    text = screenState.partData.partNumber,
+                    text = partData.partNumber,
                     style = MaterialTheme.typography.h5
                 )
             }
             VerticalSpacer(size = 12.dp)
-            Row() {
-                ImageGalleryView(images = screenState.partData.images.map { it.path })
+            Row {
+                ImageGalleryView(
+                    images = partData.images.map { it.path },
+                    onImageClick = {
+                        viewModel.triggerImageClick(it)
+                    }
+                )
             }
-
         }
-    }
-}
 
-@Composable
-@Preview(showBackground = true)
-private fun PreviewSinglePartScreenView() {
-    return SinglePartScreenView(
-        screenState = PartViewState(
-            partData = PartData(
-                id = "1",
-                manufacturer = "BMW",
-                images = List(15) { ImageData(it.toString(), it.toString(), null) },
-                partNumber = "1234567890",
-            )
-        )
-    )
+        zoomedImage.value?.let {
+            ImageScreen(it, onBack = {
+                viewModel.triggerImageHide()
+            })
+        }
+    } ?: run {
+        CircularProgressView()
+    }
 }
 
 

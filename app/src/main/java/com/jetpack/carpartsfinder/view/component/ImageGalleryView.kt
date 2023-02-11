@@ -3,6 +3,7 @@ package com.jetpack.carpartsfinder.view.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
@@ -34,7 +35,8 @@ import com.jetpack.carpartsfinder.R
 fun ImageGalleryView(
     images: List<String>,
     modifier: Modifier = Modifier,
-    space: Dp = 8.dp
+    space: Dp = 8.dp,
+    onImageClick: (String) -> Unit = {}
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -69,8 +71,7 @@ fun ImageGalleryView(
                     .size(Size.ORIGINAL)
                     .build()
             )
-            Box()
-            {
+            Box {
                 if (painter.state is AsyncImagePainter.State.Success) {
                     Image(
                         painter = painter,
@@ -81,6 +82,9 @@ fun ImageGalleryView(
                                 BorderStroke(1.dp, MaterialTheme.colors.onSurface),
                                 RoundedCornerShape(16.dp)
                             )
+                            .clickable {
+                                onImageClick(image)
+                            }
                             .size(128.dp)
                             .clip(RoundedCornerShape(16.dp))
                     )

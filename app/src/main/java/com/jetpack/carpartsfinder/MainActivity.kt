@@ -1,13 +1,16 @@
 package com.jetpack.carpartsfinder
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,6 +24,8 @@ import com.jetpack.carpartsfinder.view.StartScreenView
 import com.jetpack.carpartsfinder.viewmodel.PartListViewModel
 import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 object Navigation {
@@ -56,12 +61,8 @@ class MainActivity: ComponentActivity() {
                         route = Navigation.PARTS_LIST,
                         content = { _ ->
                             val viewModel: PartListViewModel by viewModels()
-                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                             PartListScreenView(
-                                screenState = uiState,
-                                onSearchPress = { searchString ->
-                                    viewModel.search(searchString)
-                                },
+                                viewModel = viewModel,
                                 onCardPress = { partId ->
                                     navController.navigate("parts/$partId")
                                 }
@@ -75,10 +76,9 @@ class MainActivity: ComponentActivity() {
                         content = { backStackEntry ->
                             val viewModel: PartViewModel by viewModels()
                             viewModel.searchOnePart(backStackEntry.arguments?.getString("id") ?: "")
-                            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
                             SinglePartScreenView(
-                                screenState = uiState,
+                                viewModel = viewModel,
                             )
                         }
                     )
