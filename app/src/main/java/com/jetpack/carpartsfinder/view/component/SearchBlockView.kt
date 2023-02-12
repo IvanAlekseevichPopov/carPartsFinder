@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -17,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jetpack.carpartsfinder.dto.PartListViewState
-import com.jetpack.carpartsfinder.ui.theme.Purple500
+//import com.jetpack.carpartsfinder.ui.theme.Purple500
 
 @Composable
 fun SearchBlockView(
@@ -29,7 +30,7 @@ fun SearchBlockView(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .background(Purple500)
+            .background(MaterialTheme.colors.primary)
             .padding(16.dp)
     )
     {

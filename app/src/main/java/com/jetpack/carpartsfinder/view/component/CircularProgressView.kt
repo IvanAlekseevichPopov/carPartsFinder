@@ -12,11 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.jetpack.carpartsfinder.ui.theme.CarPartsFinderTheme
+import com.jetpack.carpartsfinder.ui.theme.onSurfaceMedium
 
 @Composable
 fun CircularProgressView(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.background,
+    backgroundColor: Color = MaterialTheme.colors.onSurfaceMedium,
 ) {
     Surface(color = backgroundColor, modifier = modifier) {
         Box(
@@ -31,9 +33,11 @@ fun CircularProgressView(
 @Preview(showBackground = false)
 @Composable
 fun ContentWithProgressPreview() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        CircularProgressView(backgroundColor = MaterialTheme.colors.background)
+    CarPartsFinderTheme() {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            CircularProgressView(backgroundColor = MaterialTheme.colors.background)
+        }
     }
 }

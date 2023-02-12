@@ -30,6 +30,7 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Size
 import com.jetpack.carpartsfinder.R
+import com.jetpack.carpartsfinder.ui.theme.onSurfaceMedium
 
 @Composable
 fun ImageGalleryView(
@@ -89,7 +90,7 @@ fun ImageGalleryView(
                             .clip(RoundedCornerShape(16.dp))
                     )
                 } else {
-                    CircularProgressView(backgroundColor = Color.Transparent)
+                    CircularProgressView()
                 }
             }
         }

@@ -16,6 +16,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
+import com.jetpack.carpartsfinder.ui.theme.onSurfaceMedium
 import com.mxalbert.zoomable.Zoomable
 
 @Composable
@@ -49,9 +50,7 @@ fun FullScreenImageView(
                     .fillMaxSize()
             )
         } else {
-            CircularProgressView(
-                backgroundColor = Color.Transparent
-            )
+            CircularProgressView()
         }
     }
 }

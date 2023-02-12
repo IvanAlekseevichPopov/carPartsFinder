@@ -39,7 +39,7 @@ fun PartListScreenView(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.LightGray)
+                    .background(MaterialTheme.colors.background)
             ) {
                 SearchBlockView(
                     onSearchPress = {
