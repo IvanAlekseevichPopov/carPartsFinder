@@ -5,12 +5,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.jetpack.carpartsfinder.ui.theme.dimens
 import com.jetpack.carpartsfinder.view.component.CircularProgressView
 import com.jetpack.carpartsfinder.view.component.HorizontalSpacer
@@ -27,39 +27,41 @@ fun SinglePartScreenView(
     val zoomedImage = viewModel.zoomedImage.collectAsState()
 
     partDataState.value?.let { partData ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(MaterialTheme.dimens.eight)
-        ) {
-            Row {
-                //TODO onclick on manufacturer
-                Text(
-                    text = partData.manufacturer,
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.h5,
-                )
-                HorizontalSpacer(size = MaterialTheme.dimens.twelve)
-                Text(
-                    text = partData.partNumber,
-                    style = MaterialTheme.typography.h5
-                )
+        Surface {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(MaterialTheme.dimens.eight)
+            ) {
+                Row {
+                    //TODO onclick on manufacturer
+                    Text(
+                        text = partData.manufacturer,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.h5,
+                    )
+                    HorizontalSpacer(size = MaterialTheme.dimens.twelve)
+                    Text(
+                        text = partData.partNumber,
+                        style = MaterialTheme.typography.h5
+                    )
+                }
+                VerticalSpacer(size = MaterialTheme.dimens.twelve)
+                Row {
+                    ImageGalleryView(
+                        images = partData.images.map { it.path },
+                        onImageClick = {
+                            viewModel.triggerImageClick(it)
+                        }
+                    )
+                }
             }
-            VerticalSpacer(size = MaterialTheme.dimens.twelve)
-            Row {
-                ImageGalleryView(
-                    images = partData.images.map { it.path },
-                    onImageClick = {
-                        viewModel.triggerImageClick(it)
-                    }
-                )
-            }
-        }
 
-        zoomedImage.value?.let {
-            ImageScreen(it, onBack = {
-                viewModel.triggerImageHide()
-            })
+            zoomedImage.value?.let {
+                ImageScreen(it, onBack = {
+                    viewModel.triggerImageHide()
+                })
+            }
         }
     } ?: run {
         CircularProgressView()

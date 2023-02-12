@@ -1,8 +1,7 @@
 package com.jetpack.carpartsfinder.view.component
 
-import androidx.compose.foundation.BorderStroke
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,13 +11,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
@@ -31,8 +28,8 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Size
 import com.jetpack.carpartsfinder.R
+import com.jetpack.carpartsfinder.ui.theme.AppMaterialTheme
 import com.jetpack.carpartsfinder.ui.theme.dimens
-import com.jetpack.carpartsfinder.ui.theme.onSurfaceMedium
 
 @Composable
 fun ImageGalleryView(
@@ -101,18 +98,25 @@ fun ImageGalleryView(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Light Theme")
+@Preview(name = "Dark Theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewAsyncIconView() {
-    Box(
-        modifier = Modifier
-            .height(2400.dp)
-            .width(1080.dp)
-    ) {
-        ImageGalleryView(
-            images = List(20) {
-                "image_mock_$it"
+    AppMaterialTheme {
+        Surface {
+            Box(
+                modifier = Modifier
+                    .height(2400.dp)
+                    .width(1080.dp)
+            ) {
+                ImageGalleryView(
+                    images = List(20) {
+                        "image_mock_$it"
+                    }
+                )
             }
-        )
+        }
+
     }
+
 }

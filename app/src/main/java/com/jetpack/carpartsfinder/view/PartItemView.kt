@@ -9,13 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
@@ -25,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.jetpack.carpartsfinder.dto.PartListItemData
-import com.jetpack.carpartsfinder.ui.theme.CarPartsFinderTheme
+import com.jetpack.carpartsfinder.ui.theme.AppMaterialTheme
 import com.jetpack.carpartsfinder.ui.theme.dimens
 
 @Composable
@@ -82,7 +80,7 @@ fun PartItemView(
 @Composable
 @Preview(showBackground = true)
 fun PreviewPartItemView() {
-    CarPartsFinderTheme() {
+    AppMaterialTheme() {
         Box(modifier = Modifier.size(300.dp)) {
             PartItemView(
                 part = PartListItemData(

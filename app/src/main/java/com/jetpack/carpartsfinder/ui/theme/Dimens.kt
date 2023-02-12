@@ -12,8 +12,6 @@ class Dimens {
     val twelve = 12.dp
     val eight = 8.dp
     val four = 4.dp
-
-
 }
 
 val MaterialTheme.dimens: Dimens
