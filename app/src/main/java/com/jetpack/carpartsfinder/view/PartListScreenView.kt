@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.jetpack.carpartsfinder.ui.theme.dimens
 import com.jetpack.carpartsfinder.view.component.SearchBlockView
 import com.jetpack.carpartsfinder.viewmodel.UiPartListViewModel
 
@@ -70,7 +71,7 @@ fun PartListScreenView(
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(8.dp)
+                            .padding(MaterialTheme.dimens.eight)
                     ) {
                         items(screenState.value.parts.size) { index ->
                             PartItemView(screenState.value.parts[index], onCardPress)

@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.jetpack.carpartsfinder.ui.theme.dimens
 import com.jetpack.carpartsfinder.view.component.CircularProgressView
 import com.jetpack.carpartsfinder.view.component.HorizontalSpacer
 import com.jetpack.carpartsfinder.view.component.ImageGalleryView
@@ -29,7 +30,7 @@ fun SinglePartScreenView(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(8.dp)
+                .padding(MaterialTheme.dimens.eight)
         ) {
             Row {
                 //TODO onclick on manufacturer
@@ -38,13 +39,13 @@ fun SinglePartScreenView(
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.h5,
                 )
-                HorizontalSpacer(size = 12.dp)
+                HorizontalSpacer(size = MaterialTheme.dimens.twelve)
                 Text(
                     text = partData.partNumber,
                     style = MaterialTheme.typography.h5
                 )
             }
-            VerticalSpacer(size = 12.dp)
+            VerticalSpacer(size = MaterialTheme.dimens.twelve)
             Row {
                 ImageGalleryView(
                     images = partData.images.map { it.path },

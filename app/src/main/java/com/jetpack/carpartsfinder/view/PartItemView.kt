@@ -1,6 +1,7 @@
 package com.jetpack.carpartsfinder.view
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,10 +11,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.jetpack.carpartsfinder.dto.PartListItemData
+import com.jetpack.carpartsfinder.ui.theme.CarPartsFinderTheme
+import com.jetpack.carpartsfinder.ui.theme.dimens
 
 @Composable
 fun PartItemView(
@@ -36,25 +41,24 @@ fun PartItemView(
                     onClick(part.partNumber) //TODO попробовать вынести наверх
                 }
             )
-            .padding(4.dp)
+            .padding(MaterialTheme.dimens.four)
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp)),
-        elevation = 8.dp
+            .shadow(MaterialTheme.dimens.four)
     ) {
         Row(
             modifier = Modifier
-                .padding(8.dp)
+                .padding(MaterialTheme.dimens.eight)
                 .fillMaxWidth(),
         ) {
             Column {
                 AsyncImage(
                     contentScale = ContentScale.Crop,
                     model = part.previewImage,
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(MaterialTheme.dimens.sixtyFour),
                     contentDescription = "preview of car part"
                 )
             }
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(MaterialTheme.dimens.eight))
             Column {
                 Text(
                     text = part.partNumber,
@@ -76,17 +80,21 @@ fun PartItemView(
 }
 
 @Composable
-@Preview()
+@Preview(showBackground = true)
 fun PreviewPartItemView() {
-    PartItemView(
-        part = PartListItemData(
-            "uuid",
-            "as34wt",
-            "honda",
-            "asdfadsf"
-        ),
-        onClick = {}
-    )
+    CarPartsFinderTheme() {
+        Box(modifier = Modifier.size(300.dp)) {
+            PartItemView(
+                part = PartListItemData(
+                    "uuid",
+                    "as34wt",
+                    "honda",
+                    "asdfadsf"
+                ),
+                onClick = {}
+            )
+        }
+    }
 }
 
 

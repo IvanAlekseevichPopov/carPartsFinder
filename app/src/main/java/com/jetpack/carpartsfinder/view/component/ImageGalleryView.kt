@@ -17,6 +17,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -30,18 +31,19 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Size
 import com.jetpack.carpartsfinder.R
+import com.jetpack.carpartsfinder.ui.theme.dimens
 import com.jetpack.carpartsfinder.ui.theme.onSurfaceMedium
 
 @Composable
 fun ImageGalleryView(
     images: List<String>,
     modifier: Modifier = Modifier,
-    space: Dp = 8.dp,
+    space: Dp = MaterialTheme.dimens.eight,
     onImageClick: (String) -> Unit = {}
 ) {
     LazyVerticalGrid(
         modifier = modifier,
-        columns = GridCells.Adaptive(minSize = 128.dp),
+        columns = GridCells.Adaptive(minSize = MaterialTheme.dimens.oneHundredTwentyEight),
         verticalArrangement = Arrangement.spacedBy(space),
         horizontalArrangement = Arrangement.spacedBy(space)
     ) {
@@ -54,12 +56,13 @@ fun ImageGalleryView(
                     contentDescription = null,
                     modifier = Modifier
                         .aspectRatio(painter.intrinsicSize.width / painter.intrinsicSize.height)
-                        .border(
-                            BorderStroke(1.dp, MaterialTheme.colors.onSurface),
-                            RoundedCornerShape(16.dp)
-                        )
-                        .size(128.dp)
-                        .clip(RoundedCornerShape(16.dp))
+//                        .border(
+//                            BorderStroke(1.dp, MaterialTheme.colors.onSurface),
+//                            RoundedCornerShape(16.dp)
+//                        )
+                        .size(MaterialTheme.dimens.oneHundredTwentyEight)
+                        .shadow(MaterialTheme.dimens.four)
+//                        .clip(RoundedCornerShape(16.dp))
                 )
                 return@items
             }
@@ -79,15 +82,16 @@ fun ImageGalleryView(
                         contentDescription = null,
                         modifier = Modifier
                             .aspectRatio(painter.intrinsicSize.width / painter.intrinsicSize.height)
-                            .border(
-                                BorderStroke(1.dp, MaterialTheme.colors.onSurface),
-                                RoundedCornerShape(16.dp)
-                            )
+//                            .border(
+//                                BorderStroke(1.dp, MaterialTheme.colors.onSurface),
+//                                RoundedCornerShape(16.dp)
+//                            )
                             .clickable {
                                 onImageClick(image)
                             }
-                            .size(128.dp)
-                            .clip(RoundedCornerShape(16.dp))
+                            .size(MaterialTheme.dimens.oneHundredTwentyEight)
+                            .shadow(MaterialTheme.dimens.four)
+//                            .clip(RoundedCornerShape(16.dp))
                     )
                 } else {
                     CircularProgressView()

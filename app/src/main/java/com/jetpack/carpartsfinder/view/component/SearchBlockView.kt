@@ -18,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jetpack.carpartsfinder.dto.PartListViewState
+import com.jetpack.carpartsfinder.ui.theme.dimens
+
 //import com.jetpack.carpartsfinder.ui.theme.Purple500
 
 @Composable
@@ -31,7 +33,7 @@ fun SearchBlockView(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colors.primary)
-            .padding(16.dp)
+            .padding(MaterialTheme.dimens.sixteen)
     )
     {
         val localInputState = remember { mutableStateOf("") }
