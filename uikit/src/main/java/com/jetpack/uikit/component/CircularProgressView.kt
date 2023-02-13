@@ -1,5 +1,6 @@
-package com.jetpack.carpartsfinder.view.component
+package com.jetpack.uikit.component
 
+//import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.CircularProgressIndicator
@@ -10,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.jetpack.carpartsfinder.ui.theme.AppMaterialTheme
-import com.jetpack.carpartsfinder.ui.theme.onSurfaceMedium
+import com.jetpack.uikit.theme.AppMaterialTheme
+import com.jetpack.uikit.theme.onSurfaceMedium
 
 @Composable
 fun CircularProgressView(

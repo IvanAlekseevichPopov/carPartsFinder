@@ -1,4 +1,4 @@
-package com.jetpack.carpartsfinder.view.component
+package com.jetpack.uikit.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,15 +16,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.jetpack.carpartsfinder.dto.PartListViewState
-import com.jetpack.carpartsfinder.ui.theme.dimens
-
-//import com.jetpack.carpartsfinder.ui.theme.Purple500
+import com.jetpack.uikit.theme.dimens
 
 @Composable
 fun SearchBlockView(
-//    screenState: PartListViewState,
     onSearchPress: (String) -> Unit
 ) {
     Column(
@@ -45,7 +40,6 @@ fun SearchBlockView(
             trailingIcon = {
                 IconButton(
                     onClick = {
-//                        screenState.copy( inputText = localInputState.value)
                         onSearchPress(localInputState.value)
                     },
                     content = {

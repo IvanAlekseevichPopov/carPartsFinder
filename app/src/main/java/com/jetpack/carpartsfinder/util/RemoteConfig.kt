@@ -70,6 +70,4 @@ class RemoteConfig: RemoteConfigInterface {
     override fun getExternalBaseUrl(): String {
         return this.externalBaseUrl
     }
-
-
 }

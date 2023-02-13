@@ -11,13 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.jetpack.carpartsfinder.ui.theme.dimens
-import com.jetpack.carpartsfinder.view.component.CircularProgressView
-import com.jetpack.carpartsfinder.view.component.HorizontalSpacer
-import com.jetpack.carpartsfinder.view.component.ImageGalleryView
-import com.jetpack.carpartsfinder.view.component.ImageScreen
-import com.jetpack.carpartsfinder.view.component.VerticalSpacer
 import com.jetpack.carpartsfinder.viewmodel.UIPartViewModel
+import com.jetpack.uikit.component.CircularProgressView
+import com.jetpack.uikit.component.HorizontalSpacer
+import com.jetpack.uikit.component.ImageGalleryView
+import com.jetpack.uikit.component.ImageScreen
+import com.jetpack.uikit.component.VerticalSpacer
+import com.jetpack.uikit.theme.dimens
 
 @Composable
 fun SinglePartScreenView(

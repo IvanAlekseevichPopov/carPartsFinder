@@ -12,7 +12,7 @@ object Analytics { //TODO inject context by hilt
     const val SCREEN_PARTS = "parts_list_screen"
     const val EVENT_CARD_CLICK = "card_click"
 
-    private const val TAG = "analytics"
+    private const val TAG = "app:analytics"
     private var isInit = false
 
     fun init(context: Context) {

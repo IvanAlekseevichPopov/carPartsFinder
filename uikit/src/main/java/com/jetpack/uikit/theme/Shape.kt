@@ -1,4 +1,4 @@
-package com.jetpack.carpartsfinder.ui.theme
+package com.jetpack.uikit.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

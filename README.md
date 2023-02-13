@@ -17,13 +17,15 @@ click on card
 +appsflyer
 +remote config firebase
 +сверстать карточку(картинки блочат с бэка)
++Material тема совместимая с темным режимом
 
 
-Material тема совместимая с темным режимом
+
+UI в отдельном модуле
+
 
 
 AppsFlyer events(only for prod)
-smartlook
 добавить интерактивную проверку согласия при выполнении detekt baseline
 Smartlook(only for prod)
 подкдлючение R8 для сборки прод версии

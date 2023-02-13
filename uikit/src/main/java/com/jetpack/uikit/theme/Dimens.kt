@@ -1,4 +1,4 @@
-package com.jetpack.carpartsfinder.ui.theme
+package com.jetpack.uikit.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.unit.dp

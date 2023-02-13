@@ -1,4 +1,4 @@
-package com.jetpack.carpartsfinder.view.component
+package com.jetpack.uikit.component
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -27,9 +27,10 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Size
-import com.jetpack.carpartsfinder.R
-import com.jetpack.carpartsfinder.ui.theme.AppMaterialTheme
-import com.jetpack.carpartsfinder.ui.theme.dimens
+//import com.jetpack.carpartsfinder.R
+import com.jetpack.uikit.R
+import com.jetpack.uikit.theme.AppMaterialTheme
+import com.jetpack.uikit.theme.dimens
 
 @Composable
 fun ImageGalleryView(

@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.jetpack.carpartsfinder.dto.PartListItemData
-import com.jetpack.carpartsfinder.ui.theme.AppMaterialTheme
-import com.jetpack.carpartsfinder.ui.theme.dimens
+import com.jetpack.uikit.theme.AppMaterialTheme
+import com.jetpack.uikit.theme.dimens
 
 @Composable
 fun PartItemView(
@@ -80,7 +80,7 @@ fun PartItemView(
 @Composable
 @Preview(showBackground = true)
 fun PreviewPartItemView() {
-    AppMaterialTheme() {
+    AppMaterialTheme {
         Box(modifier = Modifier.size(300.dp)) {
             PartItemView(
                 part = PartListItemData(

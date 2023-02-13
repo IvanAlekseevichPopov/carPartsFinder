@@ -1,7 +1,5 @@
-package com.jetpack.carpartsfinder.view.component
+package com.jetpack.uikit.component
 
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width

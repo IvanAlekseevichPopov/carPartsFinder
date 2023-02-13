@@ -12,7 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.jetpack.carpartsfinder.ui.theme.AppMaterialTheme
+import com.jetpack.uikit.theme.AppMaterialTheme
 import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import com.jetpack.carpartsfinder.view.PartListScreenView
 import com.jetpack.carpartsfinder.view.SinglePartScreenView
@@ -40,8 +40,8 @@ class MainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            AppMaterialTheme {
-                if(!remoteConfig.isConfigReady.collectAsStateWithLifecycle().value) {
+            com.jetpack.uikit.theme.AppMaterialTheme {
+                if (!remoteConfig.isConfigReady.collectAsStateWithLifecycle().value) {
                     StartScreenView()
                     return@AppMaterialTheme
                 }
