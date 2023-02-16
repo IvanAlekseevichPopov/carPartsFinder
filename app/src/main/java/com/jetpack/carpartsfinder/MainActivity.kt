@@ -40,7 +40,7 @@ class MainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            com.jetpack.uikit.theme.AppMaterialTheme {
+            AppMaterialTheme {
                 if (!remoteConfig.isConfigReady.collectAsStateWithLifecycle().value) {
                     StartScreenView()
                     return@AppMaterialTheme
