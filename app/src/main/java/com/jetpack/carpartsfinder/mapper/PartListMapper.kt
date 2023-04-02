@@ -2,15 +2,13 @@ package com.jetpack.carpartsfinder.mapper
 
 import com.jetpack.carpartsfinder.dto.PartListItemData
 import com.jetpack.carpartsfinder.network.PartResponse
-import com.jetpack.carpartsfinder.util.RemoteConfig
-import dagger.hilt.android.scopes.ActivityScoped
+import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import javax.inject.Inject
+import javax.inject.Singleton
 
-//@ActivityScoped
-class PartListMapper
-@Inject
-constructor(
-//    private val remoteConfig: RemoteConfig
+@Singleton
+class PartListMapper @Inject constructor(
+    private val remoteConfig: RemoteConfigInterface
 ) {
     fun map(partListResponse: List<PartResponse>): List<PartListItemData> {
         return partListResponse.map { partResponse ->
@@ -32,7 +30,6 @@ constructor(
             return partResponse.previewImage
         }
 
-        return ""
-//        return remoteConfig.getImagesBaseUrl() + "/" + partResponse.previewImage
+        return remoteConfig.getImagesBaseUrl() + "/" + partResponse.previewImage
     }
 }

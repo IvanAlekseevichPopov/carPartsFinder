@@ -2,11 +2,12 @@ package com.jetpack.carpartsfinder.mapper
 
 import com.jetpack.carpartsfinder.dto.PartData
 import com.jetpack.carpartsfinder.network.SinglePartResponse
-import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class PartMapper @Inject constructor(
-    private var imageMapper: ImageMapper
+//    private var imageMapper: ImageMapper
 ) {
     fun map(partResponse: SinglePartResponse): PartData {
         return PartData(

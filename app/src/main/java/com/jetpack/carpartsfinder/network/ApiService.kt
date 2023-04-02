@@ -27,14 +27,6 @@ class ApiService {
         private const val CONNECT_TIMEOUT = 5L
     }
 
-    @Singleton
-    @Provides
-    fun providePartRepository(
-        api: ApiInterface,
-        partMapper: PartMapper,
-        partListMapper: PartListMapper
-    ) = PartRepository(api, partMapper, partListMapper)
-
     @OptIn(ExperimentalSerializationApi::class)
     @Singleton
     @Provides

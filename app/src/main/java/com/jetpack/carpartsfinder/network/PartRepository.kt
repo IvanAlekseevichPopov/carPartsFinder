@@ -4,10 +4,10 @@ import com.jetpack.carpartsfinder.dto.PartData
 import com.jetpack.carpartsfinder.dto.PartListItemData
 import com.jetpack.carpartsfinder.mapper.PartListMapper
 import com.jetpack.carpartsfinder.mapper.PartMapper
-import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ActivityScoped
+@Singleton
 class PartRepository @Inject constructor(
     private val apiInterface: ApiInterface,
     private val partMapper: PartMapper,

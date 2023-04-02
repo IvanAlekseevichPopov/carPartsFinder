@@ -35,13 +35,13 @@ class PartViewModel @Inject constructor(
                 } catch (e: NotFoundException) {
                     _partDataState.value = null
                 } catch (e: HttpException) {
+//                    остановился тут хэндлим все возможные ошибки
                     if(e.code() == HttpURLConnection.HTTP_NOT_FOUND) {
                         _partDataState.value = null
                     } else if (e.code() == HttpURLConnection.HTTP_INTERNAL_ERROR) {
                         _partDataState.value = null
                     }
                 }
-
             }
         }
     }
