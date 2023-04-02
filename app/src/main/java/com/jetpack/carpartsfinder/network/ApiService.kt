@@ -1,6 +1,8 @@
 package com.jetpack.carpartsfinder.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.jetpack.carpartsfinder.mapper.PartListMapper
+import com.jetpack.carpartsfinder.mapper.PartMapper
 import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import dagger.Module
 import dagger.Provides
@@ -8,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,15 +23,17 @@ import javax.inject.Singleton
 @Module
 class ApiService {
     companion object {
-        private const val READ_TIMEOUT = 10L
-        private const val CONNECT_TIMEOUT = 10L
+        private const val READ_TIMEOUT = 5L
+        private const val CONNECT_TIMEOUT = 5L
     }
 
     @Singleton
     @Provides
     fun providePartRepository(
-        api: ApiInterface
-    ) = PartRepository(api)
+        api: ApiInterface,
+        partMapper: PartMapper,
+        partListMapper: PartListMapper
+    ) = PartRepository(api, partMapper, partListMapper)
 
     @OptIn(ExperimentalSerializationApi::class)
     @Singleton
@@ -44,6 +49,7 @@ class ApiService {
             .addInterceptor(httpLoggingInterceptor)
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+//            .addInterceptor(getServerErrorHandler())
             .build()
 
         return Retrofit.Builder()
@@ -53,6 +59,24 @@ class ApiService {
             .build()
             .create(ApiInterface::class.java)
     }
+
+//    private fun getServerErrorHandler(): Interceptor {
+//        return Interceptor { chain ->
+//            val request = chain.request()
+//            val response = chain.proceed(request)
+////            if(response.code == 404) {
+////                throw NotFoundException()
+////            }
+////            if(response.code == 403) {
+////                throw ForbiddenException()
+////            }
+////            if(response.code == 500 || response.code == 502 || response.code == 504) {
+////                throw ServerErrorException() //TODO separate 5xx errors
+////            }
+//
+//            response
+//        }
+//    }
 }
 
 

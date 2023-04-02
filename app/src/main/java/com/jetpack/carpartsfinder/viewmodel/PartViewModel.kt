@@ -4,9 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jetpack.carpartsfinder.dto.PartData
-import com.jetpack.carpartsfinder.mapper.PartMapper
-import com.jetpack.carpartsfinder.network.external.ExternalPartRepository
-import com.jetpack.carpartsfinder.util.Resource
+import com.jetpack.carpartsfinder.network.NotFoundException
+import com.jetpack.carpartsfinder.network.PartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,12 +13,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 @HiltViewModel
 class PartViewModel @Inject constructor(
-    private val partRepository: ExternalPartRepository,
-    private val partMapper: PartMapper
+    private val partRepository: PartRepository,
 ) : ViewModel(), UIPartViewModel {
     private val _partDataState = MutableStateFlow<PartData?>(null)
     override val partDataState = _partDataState.asStateFlow()
@@ -30,21 +30,18 @@ class PartViewModel @Inject constructor(
     fun searchOnePart(uuid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val result = partRepository.getPart(uuid)
-                when (result) {
-                    is Resource.Success -> {
-                        result.data?.let {
-                            _partDataState.value = partMapper.mapExternal(it)
-                        } ?: run {
-                            throw RuntimeException("viewModelState.update: result.data is null")
-                        }
-                    }
-
-                    else -> {
-//                        Firebase.crashlytics.log("Can't map response to DTO. Message: ${result.message} ")
-                        throw RuntimeException("viewModelState.update: unknown result$result")
+                try {
+                    _partDataState.value = partRepository.getPart(uuid)
+                } catch (e: NotFoundException) {
+                    _partDataState.value = null
+                } catch (e: HttpException) {
+                    if(e.code() == HttpURLConnection.HTTP_NOT_FOUND) {
+                        _partDataState.value = null
+                    } else if (e.code() == HttpURLConnection.HTTP_INTERNAL_ERROR) {
+                        _partDataState.value = null
                     }
                 }
+
             }
         }
     }

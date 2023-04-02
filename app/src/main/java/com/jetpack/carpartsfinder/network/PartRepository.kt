@@ -1,33 +1,31 @@
 package com.jetpack.carpartsfinder.network
 
-import com.jetpack.carpartsfinder.util.Resource
+import com.jetpack.carpartsfinder.dto.PartData
+import com.jetpack.carpartsfinder.dto.PartListItemData
+import com.jetpack.carpartsfinder.mapper.PartListMapper
+import com.jetpack.carpartsfinder.mapper.PartMapper
 import dagger.hilt.android.scopes.ActivityScoped
-import java.lang.Exception
 import javax.inject.Inject
 
 @ActivityScoped
 class PartRepository @Inject constructor(
-    private val apiInterface: ApiInterface
+    private val apiInterface: ApiInterface,
+    private val partMapper: PartMapper,
+    private val partListMapper: PartListMapper,
 ) {
-    suspend fun getParts(searchString: String?): Resource<List<PartResponse>> {
-        val response = try {
-            apiInterface.getParts(searchString)
-        } catch (e: Exception) {
-            //TODO обработка ошибок
-            return Resource.Error("An unknown error occured: ${e.localizedMessage}")
-        }
+    suspend fun getParts(searchString: String?): List<PartListItemData> {
+        val networkResponse = apiInterface.getParts(searchString)
 
-        return Resource.Success(response)
+        return partListMapper.map(networkResponse)
     }
 
-    suspend fun getPart(uuid: String): Resource<SinglePartResponse> {
-        val response = try {
-            apiInterface.getPart(uuid)
-        } catch (e: Exception) {
-            //TODO обработка ошибок общая
-            return Resource.Error("An unknown error occured: ${e.localizedMessage}")
-        }
+    suspend fun getPart(uuid: String): PartData {
+        val networkResponse = apiInterface.getPart(uuid)
 
-        return Resource.Success(response)
+        return partMapper.map(networkResponse)
+    }
+
+    suspend fun getPartImages(partId: String): List<ImageResponse> {
+        return apiInterface.getPartImages(partId)
     }
 }

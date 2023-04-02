@@ -3,10 +3,9 @@ package com.jetpack.carpartsfinder.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jetpack.carpartsfinder.dto.PartListViewState
-import com.jetpack.carpartsfinder.mapper.PartListMapper
+import com.jetpack.carpartsfinder.dto.State
+import com.jetpack.carpartsfinder.network.NetworkException
 import com.jetpack.carpartsfinder.network.PartRepository
-import com.jetpack.carpartsfinder.network.external.ExternalPartRepository
-import com.jetpack.carpartsfinder.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,30 +16,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PartListViewModel @Inject constructor(
-    private val partRepository: ExternalPartRepository,
-    private val partListMapper: PartListMapper
+    private val partRepository: PartRepository,
 ) : ViewModel(), UiPartListViewModel {
 
-    private val viewModelState = MutableStateFlow(PartListViewState.InitialLoading)
+    private val viewModelState = MutableStateFlow(PartListViewState.Loading)
     override val uiState: StateFlow<PartListViewState> = viewModelState
 
-    //TODO переделать работу со стейтом, по примеру partViewModel
     override fun search(searchString: String?) {
-        viewModelState.value = PartListViewState.InitialLoading
-
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val result = partRepository.getParts(searchString)
-                when (result) {
-                    is Resource.Success -> viewModelState.value = PartListViewState(
-                        parts = result.data!!.map { partListMapper.mapExternal(it) },
+                viewModelState.value = PartListViewState.Loading
+
+                try {
+                    val parts = partRepository.getParts(searchString)
+                    viewModelState.value = PartListViewState(
+                        parts = parts,
                         inputText = searchString,
-                        isLoading = false,
+                        state = State.Loaded,
                     )
-                    else -> {
-                        throw RuntimeException("viewModelState.update: unknown result${result.message} ${result.data}")
-                        //TODO обработка ошибок
-                    }
+                } catch (e: NetworkException) {
+                    viewModelState.value = PartListViewState.ServerError
                 }
             }
         }

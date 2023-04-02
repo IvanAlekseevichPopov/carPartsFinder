@@ -1,17 +1,27 @@
 package com.jetpack.carpartsfinder.dto
 
-import com.jetpack.carpartsfinder.network.PartResponse
+enum class State {
+    Loading,
+    ServerError,
+    Loaded,
+}
 
 data class PartListViewState(
-    val parts: List<PartListItemData>,
+    val parts: List<PartListItemData> = emptyList(),
     val inputText: String? = null,
-    val isLoading: Boolean,
+    val state: State
 ) {
     companion object {
-        val InitialLoading = PartListViewState(
-            parts = emptyList(),
-            inputText = null,
-            isLoading = true,
+        val Loading = PartListViewState(
+            state = State.Loading
+        )
+
+        val ServerError = PartListViewState(
+            state = State.ServerError
+        )
+
+        val LoadedState = PartListViewState(
+            state = State.Loaded
         )
     }
 }

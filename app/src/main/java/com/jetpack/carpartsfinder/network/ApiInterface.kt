@@ -12,4 +12,7 @@ interface ApiInterface {
 
     @GET("/api/parts/{id}")
     suspend fun getPart(@Path("id") id: String): SinglePartResponse
+
+    @GET("/api/parts/{id}/images")
+    suspend fun getPartImages(@Path("id") id: String): List<ImageResponse>
 }

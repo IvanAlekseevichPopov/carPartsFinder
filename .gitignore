@@ -10,3 +10,4 @@
 .externalNativeBuild
 .cxx
 app/src/google-services.json
+/uikit/build/

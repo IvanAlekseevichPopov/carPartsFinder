@@ -9,5 +9,5 @@ interface RemoteConfigInterface {
 
     fun getBaseUrl(): String
 
-    fun getExternalBaseUrl(): String
+    fun getImagesBaseUrl(): String
 }

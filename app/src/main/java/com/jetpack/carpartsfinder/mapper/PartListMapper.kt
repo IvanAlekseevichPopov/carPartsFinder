@@ -2,25 +2,37 @@ package com.jetpack.carpartsfinder.mapper
 
 import com.jetpack.carpartsfinder.dto.PartListItemData
 import com.jetpack.carpartsfinder.network.PartResponse
-import com.jetpack.carpartsfinder.network.external.ExternalPartResponse
+import com.jetpack.carpartsfinder.util.RemoteConfig
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-class PartListMapper @Inject constructor() {
-    fun map(partResponse: PartResponse): PartListItemData {
+//@ActivityScoped
+class PartListMapper
+@Inject
+constructor(
+//    private val remoteConfig: RemoteConfig
+) {
+    fun map(partListResponse: List<PartResponse>): List<PartListItemData> {
+        return partListResponse.map { partResponse ->
+            map(partResponse)
+        }
+    }
+
+    private fun map(partResponse: PartResponse): PartListItemData {
         return PartListItemData(
             id = partResponse.id,
             partNumber = partResponse.partNumber,
             manufacturer = partResponse.manufacturer,
-            previewImage = partResponse.previewImage
+            previewImage = generateImageUrl(partResponse)
         )
     }
 
-    fun mapExternal(partResponse: ExternalPartResponse): PartListItemData {
-        return PartListItemData(
-            id = partResponse.manufacturerId.toString(),
-            partNumber = partResponse.partNumber,
-            manufacturer = partResponse.manufacturer,
-            previewImage = ""
-        )
+    private fun generateImageUrl(partResponse: PartResponse): String {
+        if (partResponse.previewImage.startsWith("http")) {
+            return partResponse.previewImage
+        }
+
+        return ""
+//        return remoteConfig.getImagesBaseUrl() + "/" + partResponse.previewImage
     }
 }

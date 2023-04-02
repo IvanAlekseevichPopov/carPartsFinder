@@ -1,8 +1,11 @@
 package com.jetpack.carpartsfinder.network
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class SinglePartResponse(
-    val id: String,
-    val partNumber: String,
-    val manufacturer: String,
-//TODO    val images: List<ImageResponse>
+    @SerialName("id") val id: String,
+    @SerialName("partNumber") val partNumber: String,
+    @SerialName("manufacturer") val manufacturer: String,
 )

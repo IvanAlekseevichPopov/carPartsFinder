@@ -13,10 +13,12 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.jetpack.carpartsfinder.dto.State
 import com.jetpack.carpartsfinder.view.component.SearchBlockView
 import com.jetpack.carpartsfinder.viewmodel.UiPartListViewModel
 
@@ -25,7 +27,7 @@ fun PartListScreenView(
     viewModel: UiPartListViewModel,
     onCardPress: (String) -> Unit,
 ) {
-    val screenState = viewModel.uiState.collectAsState()
+    val screenState by viewModel.uiState.collectAsState()
 
     Surface(
         color = MaterialTheme.colors.background,
@@ -47,7 +49,7 @@ fun PartListScreenView(
                     }
                 )
 
-                if (screenState.value.isLoading) {
+                if (screenState.state == State.Loading) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -55,7 +57,9 @@ fun PartListScreenView(
                     ) {
                         CircularProgressIndicator()
                     }
-                } else if (screenState.value.parts.isEmpty()) { //TODO when
+                } else if (screenState.state == State.ServerError) {
+                    Text(text = "Server error. Come back later")
+                } else if (screenState.parts.isEmpty()) { //TODO when
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -66,14 +70,13 @@ fun PartListScreenView(
                         )
                     }
                 } else {
-
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(8.dp)
                     ) {
-                        items(screenState.value.parts.size) { index ->
-                            PartItemView(screenState.value.parts[index], onCardPress)
+                        items(screenState.parts.size) { index ->
+                            PartItemView(screenState.parts[index], onCardPress)
                         }
                     }
                 }

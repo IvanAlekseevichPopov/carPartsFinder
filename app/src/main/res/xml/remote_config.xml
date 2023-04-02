@@ -2,10 +2,10 @@
 <defaultsMap>
     <entry>
         <key>baseUrl</key>
-        <value>https://dev-54ta5gq-snpoahtd2a2hk.fr-3.platformsh.site</value>
+        <value>https://ivan.alekseevich.popov.fvds.ru</value>
     </entry>
     <entry>
-        <key>externalBaseUrl</key>
-        <value>https://webapi.autodoc.ru</value>
+        <key>imagesBaseUrl</key>
+        <value>https://ivan.alekseevich.popov.fvds.ru</value>
     </entry>
 </defaultsMap>
