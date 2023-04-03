@@ -32,10 +32,10 @@ class PartViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 try {
                     _partDataState.value = partRepository.getPart(uuid)
-                } catch (e: NotFoundException) {
-                    _partDataState.value = null
                 } catch (e: HttpException) {
 //                    остановился тут хэндлим все возможные ошибки
+//                    сеттим стейт, а в UI Snackbar
+//                    https://developer.android.com/reference/kotlin/androidx/compose/material/SnackbarHostState
                     if(e.code() == HttpURLConnection.HTTP_NOT_FOUND) {
                         _partDataState.value = null
                     } else if (e.code() == HttpURLConnection.HTTP_INTERNAL_ERROR) {

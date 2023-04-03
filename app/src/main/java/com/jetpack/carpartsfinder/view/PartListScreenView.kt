@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -58,7 +59,23 @@ fun PartListScreenView(
                         CircularProgressIndicator()
                     }
                 } else if (screenState.state == State.ServerError) {
-                    Text(text = "Server error. Come back later")
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Server error. Come back later"
+                        )
+                        Button(
+                            onClick = {
+                                viewModel.search(screenState.inputText)
+                            }
+                        ) {
+                           Text("Refresh")
+                        }
+                        //TODO refresh button
+                    }
                 } else if (screenState.parts.isEmpty()) { //TODO when
                     Column(
                         modifier = Modifier.fillMaxSize(),
