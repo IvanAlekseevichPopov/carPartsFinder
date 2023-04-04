@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.jetpack.carpartsfinder.dto.PartListViewState
 import com.jetpack.carpartsfinder.dto.State
 import com.jetpack.carpartsfinder.view.component.CircularProgressView
+import com.jetpack.carpartsfinder.view.component.NoContentView
 import com.jetpack.carpartsfinder.view.component.SearchBlockView
 import com.jetpack.carpartsfinder.view.component.ServerErrorView
 import com.jetpack.carpartsfinder.viewmodel.UiPartListViewModel
@@ -58,16 +59,8 @@ fun PartListScreenView(
                     CircularProgressView()
                 } else if (screenData.state == State.ServerError) {
                     ServerErrorView(onButtonClick = { viewModel.search(screenData.inputText) })
-                } else if (screenData.parts.isEmpty()) { //TODO when
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            "Can't find nothing" //TODO trans
-                        )
-                    }
+                } else if (screenData.parts.isEmpty()) {
+                    NoContentView()
                 } else {
                     LazyColumn(
                         modifier = Modifier
