@@ -1,22 +1,18 @@
 package com.jetpack.carpartsfinder
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.jetpack.carpartsfinder.ui.theme.CarPartsFinderTheme
+import com.jetpack.carpartsfinder.ui.theme.AppTheme
 import com.jetpack.carpartsfinder.util.RemoteConfigInterface
 import com.jetpack.carpartsfinder.view.PartListScreenView
 import com.jetpack.carpartsfinder.view.SinglePartScreenView
@@ -24,8 +20,6 @@ import com.jetpack.carpartsfinder.view.StartScreenView
 import com.jetpack.carpartsfinder.viewmodel.PartListViewModel
 import com.jetpack.carpartsfinder.viewmodel.PartViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 object Navigation {
@@ -46,10 +40,10 @@ class MainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            CarPartsFinderTheme {
+            AppTheme {
                 if(!remoteConfig.isConfigReady.collectAsStateWithLifecycle().value) {
                     StartScreenView()
-                    return@CarPartsFinderTheme
+                    return@AppTheme
                 }
 
                 val navController = rememberNavController()

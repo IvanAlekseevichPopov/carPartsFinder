@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -18,17 +16,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jetpack.carpartsfinder.dto.PartListViewState
 import com.jetpack.carpartsfinder.dto.State
+import com.jetpack.carpartsfinder.view.component.CircularProgressView
 import com.jetpack.carpartsfinder.view.component.SearchBlockView
+import com.jetpack.carpartsfinder.view.component.ServerErrorView
 import com.jetpack.carpartsfinder.viewmodel.UiPartListViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun PartListScreenView(
     viewModel: UiPartListViewModel,
     onCardPress: (String) -> Unit,
 ) {
-    val screenState by viewModel.uiState.collectAsState()
+    val screenData by viewModel.uiState.collectAsState()
 
     Surface(
         color = MaterialTheme.colors.background,
@@ -50,33 +54,11 @@ fun PartListScreenView(
                     }
                 )
 
-                if (screenState.state == State.Loading) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        CircularProgressIndicator()
-                    }
-                } else if (screenState.state == State.ServerError) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Server error. Come back later"
-                        )
-                        Button(
-                            onClick = {
-                                viewModel.search(screenState.inputText)
-                            }
-                        ) {
-                           Text("Refresh")
-                        }
-                        //TODO refresh button
-                    }
-                } else if (screenState.parts.isEmpty()) { //TODO when
+                if (screenData.state == State.Loading) {
+                    CircularProgressView()
+                } else if (screenData.state == State.ServerError) {
+                    ServerErrorView(onButtonClick = { viewModel.search(screenData.inputText) })
+                } else if (screenData.parts.isEmpty()) { //TODO when
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -92,12 +74,24 @@ fun PartListScreenView(
                             .fillMaxSize()
                             .padding(8.dp)
                     ) {
-                        items(screenState.parts.size) { index ->
-                            PartItemView(screenState.parts[index], onCardPress)
+                        items(screenData.parts.size) { index ->
+                            PartItemView(screenData.parts[index], onCardPress)
                         }
                     }
                 }
             }
         }
     }
+}
+
+@Preview(showBackground = false)
+@Composable
+fun ContentWithProgressPreview() {
+    PartListScreenView(
+        viewModel = object : UiPartListViewModel {
+            override val uiState: StateFlow<PartListViewState> = MutableStateFlow(PartListViewState.ServerError)
+            override fun search(searchString: String?) {}
+        },
+        onCardPress = {}
+    )
 }
