@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jetpack.carpartsfinder.dto.PartListViewState
-import com.jetpack.carpartsfinder.dto.State
+import com.jetpack.carpartsfinder.dto.DataReceivingStatus
 import com.jetpack.carpartsfinder.view.component.CircularProgressView
 import com.jetpack.carpartsfinder.view.component.NoContentView
 import com.jetpack.carpartsfinder.view.component.SearchBlockView
@@ -55,9 +54,9 @@ fun PartListScreenView(
                     }
                 )
 
-                if (screenData.state == State.Loading) {
+                if (screenData.status == DataReceivingStatus.Loading) {
                     CircularProgressView()
-                } else if (screenData.state == State.ServerError) {
+                } else if (screenData.status == DataReceivingStatus.ServerError) {
                     ServerErrorView(onButtonClick = { viewModel.search(screenData.inputText) })
                 } else if (screenData.parts.isEmpty()) {
                     NoContentView()
@@ -79,7 +78,7 @@ fun PartListScreenView(
 
 @Preview(showBackground = false)
 @Composable
-fun ContentWithProgressPreview() {
+fun PreviewPartListScreenView() {
     PartListScreenView(
         viewModel = object : UiPartListViewModel {
             override val uiState: StateFlow<PartListViewState> = MutableStateFlow(PartListViewState.ServerError)

@@ -46,29 +46,11 @@ class ApiService {
 
         return Retrofit.Builder()
             .baseUrl(config.getBaseUrl())
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(Json { ignoreUnknownKeys = true }.asConverterFactory("application/json".toMediaType()))
             .client(okHttpClient)
             .build()
             .create(ApiInterface::class.java)
     }
-
-//    private fun getServerErrorHandler(): Interceptor {
-//        return Interceptor { chain ->
-//            val request = chain.request()
-//            val response = chain.proceed(request)
-////            if(response.code == 404) {
-////                throw NotFoundException()
-////            }
-////            if(response.code == 403) {
-////                throw ForbiddenException()
-////            }
-////            if(response.code == 500 || response.code == 502 || response.code == 504) {
-////                throw ServerErrorException() //TODO separate 5xx errors
-////            }
-//
-//            response
-//        }
-//    }
 }
 
 

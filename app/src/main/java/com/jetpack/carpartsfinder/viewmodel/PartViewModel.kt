@@ -1,16 +1,13 @@
 package com.jetpack.carpartsfinder.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jetpack.carpartsfinder.dto.PartData
-import com.jetpack.carpartsfinder.network.NotFoundException
+import com.jetpack.carpartsfinder.dto.SinglePartViewState
 import com.jetpack.carpartsfinder.network.PartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -21,25 +18,22 @@ import javax.inject.Inject
 class PartViewModel @Inject constructor(
     private val partRepository: PartRepository,
 ) : ViewModel(), UIPartViewModel {
-    private val _partDataState = MutableStateFlow<PartData?>(null)
+    private val _partDataState = MutableStateFlow<SinglePartViewState>(SinglePartViewState.Loading)
     override val partDataState = _partDataState.asStateFlow()
-
-    private val _zoomedImage = MutableStateFlow<String?>(null)
-    override val zoomedImage = _zoomedImage.asStateFlow()
 
     fun searchOnePart(uuid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _partDataState.value = SinglePartViewState.Loading
                 try {
-                    _partDataState.value = partRepository.getPart(uuid)
+                    _partDataState.value = SinglePartViewState.Loaded(partRepository.getPart(uuid))
                 } catch (e: HttpException) {
-//                    остановился тут хэндлим все возможные ошибки
-//                    сеттим стейт, а в UI Snackbar
-//                    https://developer.android.com/reference/kotlin/androidx/compose/material/SnackbarHostState
                     if(e.code() == HttpURLConnection.HTTP_NOT_FOUND) {
-                        _partDataState.value = null
+                        //TODO send critical to crashlytics
+                        _partDataState.value = SinglePartViewState.NotFound
                     } else if (e.code() == HttpURLConnection.HTTP_INTERNAL_ERROR) {
-                        _partDataState.value = null
+                        //TODO send something to crashlytics
+                        _partDataState.value = SinglePartViewState.ServerError
                     }
                 }
             }
@@ -47,22 +41,24 @@ class PartViewModel @Inject constructor(
     }
 
     override fun triggerImageClick(url: String) {
-        _zoomedImage.value = url
 
-        viewModelScope.launch(Dispatchers.IO){
-            partDataState.collectLatest {
-                Log.d("!!!", "changed uiState")
-            }
-        }
+        _partDataState.value = SinglePartViewState.ImageZoomed(url)
 
-        viewModelScope.launch(Dispatchers.IO){
-            zoomedImage.collectLatest {
-                Log.d("!!!", "changed zoomedImage")
-            }
-        }
+//        viewModelScope.launch(Dispatchers.IO){
+//            partDataState.collectLatest {
+//                Log.d("!!!", "changed uiState")
+//            }
+//        }
+//
+//        viewModelScope.launch(Dispatchers.IO){
+//            zoomedImage.collectLatest {
+//                Log.d("!!!", "changed zoomedImage")
+//            }
+//        }
     }
 
     override fun triggerImageHide() {
-        _zoomedImage.value = null
+//        TODO
+//        _partDataState.value = SinglePartViewState.Loaded()
     }
 }

@@ -1,6 +1,6 @@
 package com.jetpack.carpartsfinder.dto
 
-enum class State {
+enum class DataReceivingStatus {
     Loading,
     ServerError,
     Loaded,
@@ -9,19 +9,26 @@ enum class State {
 data class PartListViewState(
     val parts: List<PartListItemData> = emptyList(),
     val inputText: String? = null,
-    val state: State
+    val status: DataReceivingStatus
 ) {
     companion object {
         val Loading = PartListViewState(
-            state = State.Loading
+            status = DataReceivingStatus.Loading
         )
 
         val ServerError = PartListViewState(
-            state = State.ServerError
+            status = DataReceivingStatus.ServerError
         )
 
         val LoadedState = PartListViewState(
-            state = State.Loaded
+            status = DataReceivingStatus.Loaded
         )
     }
 }
+
+//TODO try sealed class
+//sealed class PartListViewState {
+//    object Loading : PartListViewState()
+//    object ServerError : PartListViewState()
+//    data class Loaded(val parts: List<PartListItemData>) : PartListViewState()
+//}

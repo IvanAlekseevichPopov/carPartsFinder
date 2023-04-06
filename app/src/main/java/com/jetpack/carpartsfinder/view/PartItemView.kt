@@ -32,8 +32,7 @@ fun PartItemView(
         modifier = Modifier
             .clickable(
                 onClick = {
-                    onClick(part.partNumber)
-//                    onClick(part.id)
+                    onClick(part.id)
                 }
             )
             .padding(4.dp)

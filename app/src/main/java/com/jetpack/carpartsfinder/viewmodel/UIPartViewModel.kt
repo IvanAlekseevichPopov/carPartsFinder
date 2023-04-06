@@ -1,11 +1,12 @@
 package com.jetpack.carpartsfinder.viewmodel
 
 import com.jetpack.carpartsfinder.dto.PartData
+import com.jetpack.carpartsfinder.dto.SinglePartViewState
 import kotlinx.coroutines.flow.StateFlow
 
 interface UIPartViewModel {
-    val partDataState: StateFlow<PartData?>
-    val zoomedImage: StateFlow<String?>
+    val partDataState: StateFlow<SinglePartViewState>
+//    val zoomedImage: StateFlow<String?>
 
     fun triggerImageClick(url: String)
     fun triggerImageHide()

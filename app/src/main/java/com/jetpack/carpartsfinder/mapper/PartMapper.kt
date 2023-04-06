@@ -6,16 +6,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PartMapper @Inject constructor(
-//    private var imageMapper: ImageMapper
-) {
+class PartMapper @Inject constructor() {
     fun map(partResponse: SinglePartResponse): PartData {
         return PartData(
             id = partResponse.id,
+            partName = partResponse.partName,
             partNumber = partResponse.partNumber,
             manufacturer = partResponse.manufacturer,
             images = emptyList()
-//           todo waiting for backend images = partResponse.images.map { imageMapper.map(it) }
         )
     }
 }

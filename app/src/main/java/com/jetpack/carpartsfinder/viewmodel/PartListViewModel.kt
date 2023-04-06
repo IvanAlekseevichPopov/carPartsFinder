@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jetpack.carpartsfinder.dto.PartListViewState
-import com.jetpack.carpartsfinder.dto.State
+import com.jetpack.carpartsfinder.dto.DataReceivingStatus
 import com.jetpack.carpartsfinder.network.PartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +35,7 @@ class PartListViewModel @Inject constructor(
                     viewModelState.value = PartListViewState(
                         parts = parts,
                         inputText = searchString,
-                        state = State.Loaded,
+                        status = DataReceivingStatus.Loaded,
                     )
                 } catch (e: HttpException) {
                     when (e.code()) {
