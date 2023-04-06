@@ -1,6 +1,6 @@
 package com.jetpack.carpartsfinder.network
 
-import com.jetpack.carpartsfinder.dto.PartData
+import com.jetpack.carpartsfinder.dto.SinglePartData
 import com.jetpack.carpartsfinder.dto.PartListItemData
 import com.jetpack.carpartsfinder.mapper.PartListMapper
 import com.jetpack.carpartsfinder.mapper.PartMapper
@@ -19,7 +19,7 @@ class PartRepository @Inject constructor(
         return partListMapper.map(networkResponse)
     }
 
-    suspend fun getPart(uuid: String): PartData {
+    suspend fun getPart(uuid: String): SinglePartData {
         val networkResponse = apiInterface.getPart(uuid)
 
         return partMapper.map(networkResponse)

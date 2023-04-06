@@ -1,6 +1,6 @@
 package com.jetpack.carpartsfinder.dto
 
-data class PartData(
+data class SinglePartData(
     val id: String,
     val partNumber: String,
     val partName: String,

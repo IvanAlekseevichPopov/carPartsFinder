@@ -2,18 +2,14 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>EmptyFunctionBlock:PartListScreenView.kt$&lt;no name provided&gt;${}</ID>
+    <ID>EmptyFunctionBlock:SinglePartScreenView.kt$&lt;no name provided&gt;${}</ID>
     <ID>MagicNumber:Color.kt$0xFF03DAC5</ID>
     <ID>MagicNumber:Color.kt$0xFF3700B3</ID>
     <ID>MagicNumber:Color.kt$0xFF6200EE</ID>
     <ID>MagicNumber:Color.kt$0xFFBB86FC</ID>
-    <ID>MagicNumber:ExternalPartRepository.kt$ExternalPartRepository$20</ID>
     <ID>MagicNumber:ImageGalleryView.kt$20</ID>
-    <ID>MaxLineLength:ExternalApiService.kt$ExternalApiService$.</ID>
-    <ID>ReturnCount:ExternalPartRepository.kt$ExternalPartRepository$suspend fun getPart(id: String): Resource&lt;ExternalSinglePartResponse&gt;</ID>
-    <ID>TooGenericExceptionCaught:ExternalPartRepository.kt$ExternalPartRepository$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:PartRepository.kt$PartRepository$e: Exception</ID>
-    <ID>TooGenericExceptionThrown:PartListViewModel.kt$PartListViewModel$throw RuntimeException("viewModelState.update: unknown result${result.message} ${result.data}")</ID>
-    <ID>TooGenericExceptionThrown:PartViewModel.kt$PartViewModel$throw RuntimeException("viewModelState.update: result.data is null")</ID>
-    <ID>TooGenericExceptionThrown:PartViewModel.kt$PartViewModel$throw RuntimeException("viewModelState.update: unknown result$result")</ID>
+    <ID>MaxLineLength:PartListScreenView.kt$}</ID>
+    <ID>MaxLineLength:SinglePartScreenView.kt$&lt;no name provided&gt;$override val partDataState = MutableStateFlow&lt;SinglePartViewState&gt;(SinglePartViewState.Loading).asStateFlow()</ID>
   </CurrentIssues>
 </SmellBaseline>

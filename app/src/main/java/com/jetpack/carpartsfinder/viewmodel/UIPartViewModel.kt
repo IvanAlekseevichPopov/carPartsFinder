@@ -1,6 +1,5 @@
 package com.jetpack.carpartsfinder.viewmodel
 
-import com.jetpack.carpartsfinder.dto.PartData
 import com.jetpack.carpartsfinder.dto.SinglePartViewState
 import kotlinx.coroutines.flow.StateFlow
 
@@ -10,4 +9,5 @@ interface UIPartViewModel {
 
     fun triggerImageClick(url: String)
     fun triggerImageHide()
+    fun searchOnePart(uuid: String)
 }

@@ -41,7 +41,12 @@ fun SinglePartScreenView(
             })
         }
         is SinglePartViewState.NotFound -> {
-            NoContentView(errorText = "Part not found")
+            NoContentView(
+                errorText = "Part not found",
+                onButtonClick = {
+                    viewModel.searchOnePart((partDataState.value as SinglePartViewState.NotFound).id)
+                }
+            )
         }
         is SinglePartViewState.ImageZoomed -> {
             val image = (partDataState.value as SinglePartViewState.ImageZoomed).url
@@ -89,9 +94,10 @@ fun PreviewSinglePartScreenView() {
     AppTheme {
         SinglePartScreenView(
             viewModel = object : UIPartViewModel {
-                override val partDataState = MutableStateFlow<SinglePartViewState>(SinglePartViewState.Loading).asStateFlow()
+                override val partDataState = MutableStateFlow<SinglePartViewState>(SinglePartViewState.Loading()).asStateFlow()
                 override fun triggerImageClick(url: String) {}
                 override fun triggerImageHide() {}
+                override fun searchOnePart(uuid: String) {}
             }
         )
     }

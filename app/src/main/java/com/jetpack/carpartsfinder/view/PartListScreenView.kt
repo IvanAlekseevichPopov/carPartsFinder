@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jetpack.carpartsfinder.dto.PartListViewState
-import com.jetpack.carpartsfinder.dto.DataReceivingStatus
 import com.jetpack.carpartsfinder.view.component.CircularProgressView
 import com.jetpack.carpartsfinder.view.component.NoContentView
 import com.jetpack.carpartsfinder.view.component.SearchBlockView
@@ -54,20 +53,25 @@ fun PartListScreenView(
                     }
                 )
 
-                if (screenData.status == DataReceivingStatus.Loading) {
+                if (screenData is PartListViewState.Loading) {
                     CircularProgressView()
-                } else if (screenData.status == DataReceivingStatus.ServerError) {
-                    ServerErrorView(onButtonClick = { viewModel.search(screenData.inputText) })
-                } else if (screenData.parts.isEmpty()) {
-                    NoContentView()
+                } else if (screenData is PartListViewState.ServerError) {
+                    ServerErrorView(
+                        onButtonClick = { viewModel.search((screenData as PartListViewState.ServerError).inputText) }
+                    )
+                } else if (screenData is PartListViewState.Loaded && (screenData as PartListViewState.Loaded).parts.isEmpty()) {
+                    NoContentView(
+                        onButtonClick = { viewModel.search((screenData as PartListViewState.Loaded).inputText) }
+                    )
                 } else {
+                    val parts = (screenData as PartListViewState.Loaded).parts
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(8.dp)
                     ) {
-                        items(screenData.parts.size) { index ->
-                            PartItemView(screenData.parts[index], onCardPress)
+                        items(parts.size) { index ->
+                            PartItemView(parts[index], onCardPress)
                         }
                     }
                 }
@@ -81,7 +85,7 @@ fun PartListScreenView(
 fun PreviewPartListScreenView() {
     PartListScreenView(
         viewModel = object : UiPartListViewModel {
-            override val uiState: StateFlow<PartListViewState> = MutableStateFlow(PartListViewState.ServerError)
+            override val uiState: StateFlow<PartListViewState> = MutableStateFlow(PartListViewState.ServerError())
             override fun search(searchString: String?) {}
         },
         onCardPress = {}

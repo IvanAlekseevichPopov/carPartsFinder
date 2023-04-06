@@ -1,5 +1,6 @@
 package com.jetpack.carpartsfinder.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jetpack.carpartsfinder.dto.SinglePartViewState
@@ -8,6 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -18,22 +21,22 @@ import javax.inject.Inject
 class PartViewModel @Inject constructor(
     private val partRepository: PartRepository,
 ) : ViewModel(), UIPartViewModel {
-    private val _partDataState = MutableStateFlow<SinglePartViewState>(SinglePartViewState.Loading)
+    private val _partDataState = MutableStateFlow<SinglePartViewState>(SinglePartViewState.Loading())
     override val partDataState = _partDataState.asStateFlow()
 
-    fun searchOnePart(uuid: String) {
+    override fun searchOnePart(uuid: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _partDataState.value = SinglePartViewState.Loading
+                _partDataState.value = SinglePartViewState.Loading(uuid)
                 try {
                     _partDataState.value = SinglePartViewState.Loaded(partRepository.getPart(uuid))
                 } catch (e: HttpException) {
                     if(e.code() == HttpURLConnection.HTTP_NOT_FOUND) {
                         //TODO send critical to crashlytics
-                        _partDataState.value = SinglePartViewState.NotFound
+                        _partDataState.value = SinglePartViewState.NotFound(uuid)
                     } else if (e.code() == HttpURLConnection.HTTP_INTERNAL_ERROR) {
                         //TODO send something to crashlytics
-                        _partDataState.value = SinglePartViewState.ServerError
+                        _partDataState.value = SinglePartViewState.ServerError(uuid)
                     }
                 }
             }
